@@ -77,22 +77,26 @@
   width: auto;
   height: auto;
 }
-/* type block — top-left of the quiet zone. Inset as % so it scales with the image. */
+/* type block — full group (label + title + standfirst) on the image's top-left,
+   inset by a little padding. Anchored to the image, so it stays contained. */
 .opening__type {
   position: absolute;
-  top: 6%;
-  left: 6%;
+  top: var(--space-5);
+  left: var(--space-5);
+  max-width: 70%;
   text-align: left;
   line-height: normal;
   /* deliberately NO background / scrim / gradient */
 }
-.opening__type .shoot-label { margin-bottom: var(--space-2); }
+.opening__type .shoot-label   { margin-bottom: var(--space-3); }
+.opening__type .project-title { margin-bottom: var(--space-3); }
+.opening__type .standfirst    { max-width: 32ch; }
 
 /* tonal modes:
-   default      = LIGHT quiet zone → DARK type  (onyx title, burgundy label) */
-.opening__type .title { color: var(--onyx); }
-/* add .opening__type--light for a DARK quiet zone → LIGHT type */
-.opening__type--light .title { color: var(--bright-snow); }
+   default = LIGHT quiet zone → DARK type (onyx title, graphite standfirst, burgundy label) */
+/* DARK quiet zone → LIGHT type: add class="opening__type opening__type--light" */
+.opening__type--light .project-title,
+.opening__type--light .standfirst { color: var(--bright-snow); }
 /* burgundy shoot-label holds against both light and dark */
 
 /* ============================================================
@@ -153,5 +157,5 @@
   .pair img { max-width: 100%; max-height: 88vh; }
   .opening__media { max-width: 100vw; }
   .opening__media img { max-width: 100%; }
-  .opening__type { top: 5%; left: 5%; }
+  .opening__type { top: var(--space-4); left: var(--space-4); max-width: 80%; }
 }
