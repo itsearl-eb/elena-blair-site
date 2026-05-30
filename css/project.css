@@ -57,24 +57,33 @@
 /* ============================================================
    OPENING — MODE A: overlay spread (site spec §05A)
    Type sits directly in the hero's quiet zone. NO scrim.
+   Type is anchored to the IMAGE (.opening__media), NOT the section —
+   so it stays in the quiet zone at every viewport width.
    ============================================================ */
 .opening {
-  position: relative;
-  display: flex;
-  justify-content: center;
+  text-align: center;              /* centers the shrink-wrapped figure */
   margin-bottom: var(--frame-gap);
 }
-.opening img {
-  max-height: var(--img-cap-hero);
+.opening__media {
+  position: relative;              /* positioning context = the image box itself */
+  display: inline-block;
+  line-height: 0;
+  margin: 0;
   max-width: var(--img-gutter);
+}
+.opening__media img {
+  max-height: var(--img-cap-hero);
+  max-width: 100%;
   width: auto;
   height: auto;
 }
-/* type block — preferred location top-left of the quiet zone */
+/* type block — top-left of the quiet zone. Inset as % so it scales with the image. */
 .opening__type {
   position: absolute;
-  top: var(--space-5);
-  left: var(--space-5);
+  top: 6%;
+  left: 6%;
+  text-align: left;
+  line-height: normal;
   /* deliberately NO background / scrim / gradient */
 }
 .opening__type .shoot-label { margin-bottom: var(--space-2); }
@@ -88,15 +97,18 @@
 
 /* ============================================================
    OPENING — MODE B: clean title block (site spec §05B)
-   Use when no qualifying quiet zone. Title on parchment, image clean below.
+   Label + title + standfirst stacked together, image(s) run clean below.
+   Use when no qualifying quiet zone — or when you simply want the deck
+   read as one unit rather than split across the hero.
    ============================================================ */
 .title-block {
   max-width: var(--measure);
   margin: 0 auto var(--frame-gap);
   padding: var(--space-6) var(--space-4) var(--space-5);
 }
-.title-block .shoot-label { margin-bottom: var(--space-3); }
-.title-block .title { margin-bottom: var(--space-3); }
+.title-block .shoot-label   { margin-bottom: var(--space-3); }
+.title-block .project-title { margin-bottom: var(--space-4); }
+/* standfirst sits directly under the title (kepler-std italic via eb.css) */
 
 /* ---- STANDFIRST ---------------------------------------------- */
 .standfirst-wrap {
@@ -139,6 +151,7 @@
   .frame img.is-portrait  { max-height: 88vh; max-width: 100%; }
   .pair { flex-direction: column; align-items: center; gap: var(--frame-gap); }
   .pair img { max-width: 100%; max-height: 88vh; }
-  .opening img { max-width: 100vw; }
-  .opening__type { top: var(--space-3); left: var(--space-3); }
+  .opening__media { max-width: 100vw; }
+  .opening__media img { max-width: 100%; }
+  .opening__type { top: 5%; left: 5%; }
 }
