@@ -1,0 +1,144 @@
+/* ============================================================
+   ELENA BLAIR — Project Page Layout (project.css)
+   Links AFTER eb.css. The vertical-scroll authored-sequence engine.
+   Site spec §03–§05.
+   eb.css carries tokens + type roles; this carries project-page layout only.
+   ============================================================ */
+
+:root {
+  --frame-gap:     12vh;   /* vertical space between frames — one-per-viewport pacing */
+  --img-cap-hero:  92vh;   /* opening hero height cap */
+  /* --img-cap (90vh) inherited from eb.css */
+  --img-cap-pair:  80vh;   /* each image in a two-up pair */
+  --img-gutter:    92vw;   /* max width — leaves whitespace; contained, NOT full-bleed */
+  --pair-gap:      2vw;
+}
+
+/* ---- PAGE SHELL ---------------------------------------------- */
+.project { padding-top: var(--space-6); padding-bottom: var(--space-8); }
+
+/* narrow text measure — title / standfirst / credits */
+.measure {
+  max-width: var(--measure);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+/* ---- FULL-WIDTH FRAME (primitive 1) -------------------------- */
+.frame {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--frame-gap);
+}
+.frame img {
+  max-height: var(--img-cap);
+  max-width: var(--img-gutter);
+  width: auto;
+  height: auto;
+}
+
+/* ---- TWO-UP PAIR (primitive 2) — matched orientation only ---- */
+.pair {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--pair-gap);
+  margin-bottom: var(--frame-gap);
+}
+.pair img {
+  max-height: var(--img-cap-pair);
+  max-width: calc((var(--img-gutter) - var(--pair-gap)) / 2);
+  width: auto;
+  height: auto;
+}
+
+/* ============================================================
+   OPENING — MODE A: overlay spread (site spec §05A)
+   Type sits directly in the hero's quiet zone. NO scrim.
+   ============================================================ */
+.opening {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--frame-gap);
+}
+.opening img {
+  max-height: var(--img-cap-hero);
+  max-width: var(--img-gutter);
+  width: auto;
+  height: auto;
+}
+/* type block — preferred location top-left of the quiet zone */
+.opening__type {
+  position: absolute;
+  top: var(--space-5);
+  left: var(--space-5);
+  /* deliberately NO background / scrim / gradient */
+}
+.opening__type .shoot-label { margin-bottom: var(--space-2); }
+
+/* tonal modes:
+   default      = LIGHT quiet zone → DARK type  (onyx title, burgundy label) */
+.opening__type .title { color: var(--onyx); }
+/* add .opening__type--light for a DARK quiet zone → LIGHT type */
+.opening__type--light .title { color: var(--bright-snow); }
+/* burgundy shoot-label holds against both light and dark */
+
+/* ============================================================
+   OPENING — MODE B: clean title block (site spec §05B)
+   Use when no qualifying quiet zone. Title on parchment, image clean below.
+   ============================================================ */
+.title-block {
+  max-width: var(--measure);
+  margin: 0 auto var(--frame-gap);
+  padding: var(--space-6) var(--space-4) var(--space-5);
+}
+.title-block .shoot-label { margin-bottom: var(--space-3); }
+.title-block .title { margin-bottom: var(--space-3); }
+
+/* ---- STANDFIRST ---------------------------------------------- */
+.standfirst-wrap {
+  max-width: var(--measure);
+  margin: 0 auto var(--frame-gap);
+  padding: 0 var(--space-4);
+}
+
+/* ---- CREDITS + NEXT ------------------------------------------ */
+.credits {
+  max-width: var(--measure);
+  margin: var(--space-7) auto 0;
+  padding: var(--space-6) var(--space-4) 0;
+  border-top: var(--hairline) solid var(--divider);
+}
+.credits dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+}
+.credits dt { color: var(--burgundy); text-transform: uppercase; letter-spacing: var(--track-field); }
+.credits dd { margin: 0; color: var(--graphite); }
+
+.next {
+  max-width: var(--measure);
+  margin: var(--space-6) auto var(--space-4);
+  padding: 0 var(--space-4);
+}
+.next a { font-family: var(--font-display); font-size: var(--size-h4); letter-spacing: var(--track-h4); color: var(--onyx); }
+.next a:hover { color: var(--burgundy); }
+
+/* ============================================================
+   MOBILE — orientation-aware (site spec §03)
+   Per-image .is-portrait / .is-landscape classes drive the rule.
+   ============================================================ */
+@media (max-width: 600px) {
+  :root { --frame-gap: 8vh; }
+  .frame img.is-landscape { max-width: 100vw; max-height: none; }
+  .frame img.is-portrait  { max-height: 88vh; max-width: 100%; }
+  .pair { flex-direction: column; align-items: center; gap: var(--frame-gap); }
+  .pair img { max-width: 100%; max-height: 88vh; }
+  .opening img { max-width: 100vw; }
+  .opening__type { top: var(--space-3); left: var(--space-3); }
+}
