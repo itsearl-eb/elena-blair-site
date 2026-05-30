@@ -25,11 +25,13 @@
 
   /* --- TYPE SCALE — sizes (screen column, brand sheet §06) -- */
   --size-h1:        clamp(48px, 6vw, 92px);
+  --size-title:     clamp(44px, 6vw, 76px);  /* project-page masthead title (title block / opener) */
   --size-h2-lg:     48px;
   --size-h2-sm:     25px;
   --size-h3:        22px;
   --size-archive:   21px;   /* archive card title — site spec §02 */
   --size-h4:        18px;
+  --size-standfirst: 20px;  /* project-page deck — kepler-std italic, the one italic use */
   --size-body:      16px;
   --size-caption:   14px;
   --size-label:     12px;   /* nav, buttons, section + field labels (screen min) */
@@ -111,6 +113,17 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
+/* Project masthead title — title block or opener overlay. Bigger than h2-lg. */
+.project-title {
+  font-family: var(--font-display);
+  font-weight: var(--w-display);
+  font-size: var(--size-title);
+  letter-spacing: var(--track-h2-lg);
+  line-height: var(--lh-display);
+  color: var(--onyx);
+  margin: 0;
+}
+
 .h2-lg {
   font-family: var(--font-display);
   font-weight: var(--w-display);
@@ -162,14 +175,18 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 
-/* Standfirst — project page §04. Display serif, upright, 1–2 lines, states the idea.
-   (Upright, not italic — one face, hierarchy by scale; emphasis comes from position + silence.) */
+/* Standfirst — project page §04. THE ONLY ITALIC IN THE SYSTEM.
+   kepler-std (standard optical size) italic, 400. Italic is the editorial signal,
+   so the family stays the quieter, more legible standard cut — not display.
+   ⚠ Italic is scoped to THIS element only. Do not use italic anywhere else
+   (no italic headings, credits, captions, nav). One face, hierarchy by variant. */
 .standfirst {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-h3);
-  letter-spacing: var(--track-h3);
-  line-height: var(--lh-heading);
+  font-family: var(--font-body);
+  font-weight: var(--w-body);
+  font-style: italic;
+  font-size: var(--size-standfirst);
+  letter-spacing: var(--track-body);
+  line-height: 1.4;
   color: var(--graphite);
   margin: 0;
 }
