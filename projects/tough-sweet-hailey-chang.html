@@ -37,32 +37,30 @@
   <main class="project">
 
     <!-- ============================================================
-         OPENING — MODE A (overlay). Hero 21265, landscape (4:3).
-         Light quiet zone → dark type (default). If the real hero's quiet
-         zone is DARK, change the div to class="opening__type opening__type--light".
-         If 21265 has no clean quiet zone for the type, switch this project to
-         Mode B (clean title block) instead.
+         OPENING — MODE A (overlay). Hero 21265, landscape.
+         Full text group (label + title + standfirst) sits on the image's
+         top-left, inset with a little padding, anchored to the image so it
+         stays contained at any width. Light quiet zone → dark type (default);
+         for a DARK zone, change the div to class="opening__type opening__type--light".
          ============================================================ -->
     <section class="opening">
-      <img
-        src="https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_1600/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg"
-        srcset="https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_900/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg 900w,
-                https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_1600/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg 1600w,
-                https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_2400/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg 2400w"
-        sizes="92vw"
-        width="2304" height="1728"
-        loading="eager" fetchpriority="high"
-        alt="A child in a thorned-heart graphic top and white trousers reclining on the floor, one booted leg raised, looking calmly back at the camera.">
-      <div class="opening__type">
-        <p class="shoot-label">Creative</p>
-        <h1 class="h2-lg title">Tough Sweet</h1>
-      </div>
+      <figure class="opening__media">
+        <img
+          src="https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_1600/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg"
+          srcset="https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_900/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg 900w,
+                  https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_1600/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg 1600w,
+                  https://res.cloudinary.com/dj0puxegp/image/upload/f_auto,q_auto,w_2400/v1780128066/Tough_Sweet_-_Hailey_Chang_11-01-26_21265_xnblrb.jpg 2400w"
+          sizes="92vw"
+          width="2304" height="1728"
+          loading="eager" fetchpriority="high"
+          alt="A child in a thorned-heart graphic top and white trousers reclining on the floor, one booted leg raised, looking calmly back at the camera.">
+        <div class="opening__type">
+          <p class="shoot-label">Creative</p>
+          <h1 class="project-title">Tough Sweet</h1>
+          <p class="standfirst">Dressed for a fight she hasn&rsquo;t been picking &mdash; and far too at ease to start one.</p>
+        </div>
+      </figure>
     </section>
-
-    <!-- STANDFIRST — kepler-std italic (via eb.css). States the idea, not the contents. -->
-    <div class="standfirst-wrap">
-      <p class="standfirst">Dressed for a fight she hasn&rsquo;t been picking &mdash; and far too at ease to start one.</p>
-    </div>
 
     <!-- 21312 · portrait · full-width -->
     <section class="frame">
