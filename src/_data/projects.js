@@ -83,7 +83,7 @@ const projects = [
       },
     ],
     credits: [
-      { role: "Photography", name: "Earl Kiu" },
+      { role: "Photography", name: "Earl Kiu", url: "https://earlkiu.com" },
       { role: "Subject", name: "Hailey Chang" },
       { role: "Styling & Hair", name: "Kiki Yyan" },
     ],
@@ -96,6 +96,7 @@ const projects = [
     title: "Alt-Coded",
     shootType: "Creative",
     date: "2025-05-03",
+    featured: true,
     metaDescription:
       "Monochrome streetwear as armor — a character legible only to those who already know the code.",
     standfirst:
@@ -153,8 +154,8 @@ const projects = [
       },
     ],
     credits: [
-      { role: "Photography", name: "Earl Kiu" },
-      { role: "Subject", name: "Zyra" },
+      { role: "Photography", name: "Earl Kiu", url: "https://earlkiu.com" },
+      { role: "Subject", name: "Zyra", url: "https://www.instagram.com/kaznoiryra/" },
       { role: "Styling & Production", name: "Erienn" },
     ],
     ogImageBase:

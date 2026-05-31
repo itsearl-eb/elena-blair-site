@@ -296,8 +296,19 @@
     margin-top: var(--space-7);
     padding: var(--space-5) var(--space-4) var(--space-6);
     border-top: var(--hairline) solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-4);
   }
   .site-footer p { margin: 0; }
+  .site-footer__right { text-align: right; }
+  .site-footer__reg { font-size: 12px; }   /* legal metadata — lighter than the © line */
+
+  @media (max-width: 600px) {
+    .site-footer { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+    .site-footer__right { text-align: left; }
+  }
   
   /* ---- MOBILE: nav stays one row (two links now fit); tighten to be safe ---- */
   @media (max-width: 600px) {

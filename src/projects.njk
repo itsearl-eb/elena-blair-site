@@ -10,7 +10,7 @@ eleventyComputed:
   metaDescription: "{{ project.metaDescription }}"
   ogTitle: "{{ project.title }} — Elena Blair"
   ogDescription: "{{ project.standfirst }}"
-  ogUrl: "https://www.elenablair.com/projects/{{ project.slug }}/"
+  ogUrl: "https://elenablair.com/projects/{{ project.slug }}/"
   ogImage: "{{ project.ogImage }}"
 ---
 {% from "frame.njk" import frame %}
@@ -50,13 +50,17 @@ eleventyComputed:
   {% endfor %}
 
   <section class="credits caption">
-    <dl>
-      {% for c in project.credits %}<dt>{{ c.role }}</dt><dd>{{ c.name }}</dd>{% endfor %}
-    </dl>
-  </section>
+  <dl>
+    {% for c in project.credits %}<dt>{{ c.role }}</dt>
+    <dd>{% if c.url %}<a href="{{ c.url }}" class="link-hover" target="_blank" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}</dd>
+    {% endfor %}
+  </dl>
+</section>
+    
 
   <nav class="next">
-    <a href="/projects/{{ project.next.slug }}/">next &rarr; {{ project.next.title }}</a>
-  </nav>
+  <a href="/projects/{{ project.next.slug }}/" class="next__primary">next &rarr; {{ project.next.title }}</a>
+  <a href="/the-archive/" class="next__back nav-label link-hover">the archive</a>
+</nav>
 
 </main>
