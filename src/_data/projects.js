@@ -83,7 +83,7 @@ const projects = [
       },
     ],
     credits: [
-      { role: "Photography", name: "<dd><a href="URL" class="link-hover" target="https://earlkiu.com" rel="noopener">Earl Kiu</a></dd>" },
+      { role: "Photography", name: "Earl Kiu", url: "https://earlkiu.com" },
       { role: "Subject", name: "Hailey Chang" },
       { role: "Styling & Hair", name: "Kiki Yyan" },
     ],
@@ -154,8 +154,8 @@ const projects = [
       },
     ],
     credits: [
-      { role: "Photography", name: "Earl Kiu" },
-      { role: "Subject", name: "Zyra" },
+      { role: "Photography", name: "Earl Kiu", url: "https://earlkiu.com" },
+      { role: "Subject", name: "Zyra", url: "https://www.instagram.com/kaznoiryra/" },
       { role: "Styling & Production", name: "Erienn" },
     ],
     ogImageBase:
