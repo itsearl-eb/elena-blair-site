@@ -1,27 +1,31 @@
-/* HOME / about-as-home (/). Layout only — type roles + tokens live in eb.css.
-   Left-aligned editorial column. */
+/* HOME / about-as-home (/). Layout only — type roles + tokens live in eb.css. */
 
 .home {
   padding: var(--space-7) var(--space-6) var(--space-8);
 }
 
 .home__statement {
-  max-width: var(--measure);          /* wraps "The Art of / Aspiration." */
+  max-width: var(--measure);
   margin: 0 0 var(--space-7);
 }
 
 .home__section {
-  max-width: var(--measure);          /* keeps body line-length readable */
+  max-width: var(--measure);
   margin-top: var(--space-6);
 }
-
 .home__section .section-label { margin-bottom: var(--space-3); }
+.home__deck { margin-top: var(--space-4); }
 
-.home__deck { margin-top: var(--space-4); }        /* the italic KL line */
-
-.home__section .h4 { margin-top: var(--space-3); } /* the Archive link */
+/* WORK teaser — wider than the text measure so covers show at size */
+.home__work {
+  max-width: 1000px;
+  margin-top: var(--space-7);
+}
+.home__work .section-label { margin-bottom: var(--space-4); }
+.home__see-all { margin-top: var(--space-5); }
 
 @media (max-width: 600px) {
   .home { padding: var(--space-6) var(--space-3) var(--space-7); }
   .home__statement { margin-bottom: var(--space-6); }
+  .home__work { margin-top: var(--space-6); }
 }
