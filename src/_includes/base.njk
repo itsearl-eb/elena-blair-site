@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ title }}</title>
+  {% if metaDescription %}<meta name="description" content="{{ metaDescription }}">{% endif %}
+
+  {% if ogTitle %}
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Elena Blair">
+  <meta property="og:title" content="{{ ogTitle }}">
+  <meta property="og:description" content="{{ ogDescription }}">
+  <meta property="og:url" content="{{ ogUrl }}">
+  <meta property="og:image" content="{{ ogImage }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {% endif %}
+
+  <link rel="stylesheet" href="https://use.typekit.net/zbv8ksi.css">
+  <link rel="stylesheet" href="/css/eb.css">
+  <link rel="stylesheet" href="/css/project.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+  <header class="site-nav">
+    <a href="/" class="h4">Elena Blair</a>
+    <nav>
+      <a href="/the-archive/" class="nav-label">The Archive</a>
+      <a href="https://forms.elenablair.com/enquiry" class="nav-label">The Commission</a>
+    </nav>
+  </header>
+
+  {{ content | safe }}
+
+  <footer class="site-footer caption">
+    <p>&copy; Elena Blair &middot; Elite Corridor Sdn Bhd</p>
+    <p>sayhello@elenablair.com</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{# frame(f, kind) — kind: "hero" | "full" | "pair"
+   f: { base, orientation:"portrait"|"landscape", alt, w?, h? }
+   Widths/sizes follow EB_Project_Page_Build.md §03. #}
+
+{% macro frame(f, kind) %}
+{%- set wPortrait = 1728 -%}{%- set hPortrait = 2304 -%}
+{%- set wLandscape = 2304 -%}{%- set hLandscape = 1728 -%}
+{%- set w = f.w or (wLandscape if f.orientation == "landscape" else wPortrait) -%}
+{%- set h = f.h or (hLandscape if f.orientation == "landscape" else hPortrait) -%}
+
+{%- if kind == "hero" -%}
+  <img
+    src="{{ f.base | cld(1600) }}"
+    srcset="{{ f.base | cld(900) }} 900w, {{ f.base | cld(1600) }} 1600w, {{ f.base | cld(2400) }} 2400w"
+    sizes="92vw"
+    width="{{ w }}" height="{{ h }}"
+    loading="eager" fetchpriority="high"
+    alt="{{ f.alt }}">
+
+{%- elif kind == "pair" -%}
+  <img loading="lazy" class="is-{{ f.orientation }}"
+    src="{{ f.base | cld(1000) }}"
+    srcset="{{ f.base | cld(700) }} 700w, {{ f.base | cld(1000) }} 1000w, {{ f.base | cld(1500) }} 1500w"
+    sizes="(max-width:600px) 100vw, 45vh"
+    width="{{ w }}" height="{{ h }}"
+    alt="{{ f.alt }}">
+
+{%- elif f.orientation == "landscape" -%}
+  <img loading="lazy" class="is-landscape"
+    src="{{ f.base | cld(1600) }}"
+    srcset="{{ f.base | cld(900) }} 900w, {{ f.base | cld(1600) }} 1600w, {{ f.base | cld(2400) }} 2400w"
+    sizes="(max-width:600px) 100vw, 92vw"
+    width="{{ w }}" height="{{ h }}"
+    alt="{{ f.alt }}">
+
+{%- else -%}
+  <img loading="lazy" class="is-portrait"
+    src="{{ f.base | cld(1200) }}"
+    srcset="{{ f.base | cld(700) }} 700w, {{ f.base | cld(1200) }} 1200w, {{ f.base | cld(1800) }} 1800w"
+    sizes="(max-width:600px) 100vw, 67vh"
+    width="{{ w }}" height="{{ h }}"
+    alt="{{ f.alt }}">
+{%- endif -%}
+{% endmacro %}

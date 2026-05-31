@@ -1,0 +1,62 @@
+---
+pagination:
+  data: projects
+  size: 1
+  alias: project
+permalink: "/projects/{{ project.slug }}/"
+layout: base.njk
+eleventyComputed:
+  title: "{{ project.title }} — Elena Blair"
+  metaDescription: "{{ project.metaDescription }}"
+  ogTitle: "{{ project.title }} — Elena Blair"
+  ogDescription: "{{ project.standfirst }}"
+  ogUrl: "https://www.elenablair.com/projects/{{ project.slug }}/"
+  ogImage: "{{ project.ogImage }}"
+---
+{% from "frame.njk" import frame %}
+<main class="project">
+
+  {% if project.opening.mode == "A" %}
+  {# MODE A — overlay on hero. tone "dark" adds the light-type modifier. #}
+  <section class="opening">
+    <figure class="opening__media">
+      {{ frame(project.opening.hero, "hero") }}
+      <div class="opening__type{% if project.opening.tone == 'dark' %} opening__type--light{% endif %}">
+        <p class="shoot-label">{{ project.shootType }}</p>
+        <h1 class="project-title">{{ project.title }}</h1>
+        <p class="standfirst">{{ project.standfirst }}</p>
+      </div>
+    </figure>
+  </section>
+  {% else %}
+  {# MODE B — clean title block, hero runs as a normal frame below. #}
+  <header class="title-block">
+    <p class="shoot-label">{{ project.shootType }}</p>
+    <h1 class="project-title">{{ project.title }}</h1>
+    <p class="standfirst">{{ project.standfirst }}</p>
+  </header>
+  <section class="frame">{{ frame(project.opening.hero, "full") }}</section>
+  {% endif %}
+
+  {% for row in project.sequence %}
+    {% if row.type == "pair" %}
+    <section class="pair">
+      {{ frame(row.frames[0], "pair") }}
+      {{ frame(row.frames[1], "pair") }}
+    </section>
+    {% else %}
+    <section class="frame">{{ frame(row.frame, "full") }}</section>
+    {% endif %}
+  {% endfor %}
+
+  <section class="credits caption">
+    <dl>
+      {% for c in project.credits %}<dt>{{ c.role }}</dt><dd>{{ c.name }}</dd>{% endfor %}
+    </dl>
+  </section>
+
+  <nav class="next">
+    <a href="/projects/{{ project.next.slug }}/">next &rarr; {{ project.next.title }}</a>
+  </nav>
+
+</main>

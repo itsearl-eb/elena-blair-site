@@ -1,0 +1,36 @@
+---
+permalink: "/the-archive/"
+layout: base.njk
+title: "The Archive — Elena Blair"
+metaDescription: "Authored editorial sets by Elena Blair. Based in Kuala Lumpur. Available by commission."
+---
+{# 2-up triage grid from _data/projects.js (newest-first).
+   Card image = each project's opening hero. To use a different cover later,
+   add a `cover` field to the manifest and read it here. Styling: css/archive.css. #}
+<main class="archive">
+  <ul class="archive-grid">
+    {% for project in projects %}
+    <li class="archive-card">
+      <a href="/projects/{{ project.slug }}/">
+        {% if project.opening.hero.orientation == "landscape" %}
+        <img loading="lazy"
+          src="{{ project.opening.hero.base | cld(1000) }}"
+          srcset="{{ project.opening.hero.base | cld(700) }} 700w, {{ project.opening.hero.base | cld(1200) }} 1200w"
+          sizes="(max-width:600px) 100vw, 45vw"
+          width="2304" height="1728"
+          alt="{{ project.title }} — {{ project.shootType }}">
+        {% else %}
+        <img loading="lazy"
+          src="{{ project.opening.hero.base | cld(900) }}"
+          srcset="{{ project.opening.hero.base | cld(700) }} 700w, {{ project.opening.hero.base | cld(1200) }} 1200w"
+          sizes="(max-width:600px) 100vw, 45vw"
+          width="1728" height="2304"
+          alt="{{ project.title }} — {{ project.shootType }}">
+        {% endif %}
+        <p class="shoot-label">{{ project.shootType }}</p>
+        <h2 class="archive-title">{{ project.title }}</h2>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</main>

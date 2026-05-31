@@ -1,0 +1,48 @@
+---
+permalink: "/"
+layout: base.njk
+title: "Elena Blair"
+metaDescription: "Fashion editorial that gives garments something to say. Based in Kuala Lumpur. Available by commission."
+featuredCount: 2
+---
+<main class="home">
+
+  <h1 class="h1 home__statement">The Art of Aspiration.</h1>
+
+  <section class="home__section">
+    <p class="section-label">01 — Studio</p>
+    <p class="body">Fashion editorial that gives garments something to say. We work at the intersection of styling and character — building images that hold their own beyond the brief.</p>
+    <p class="standfirst home__deck">Based in Kuala Lumpur. Available by commission.</p>
+  </section>
+
+  <section class="home__work">
+    <p class="section-label">02 — Work</p>
+    <ul class="archive-grid">
+      {% for project in projects %}{% if loop.index <= featuredCount %}
+      <li class="archive-card">
+        <a href="/projects/{{ project.slug }}/">
+          {% if project.opening.hero.orientation == "landscape" %}
+          <img loading="lazy"
+            src="{{ project.opening.hero.base | cld(1000) }}"
+            srcset="{{ project.opening.hero.base | cld(700) }} 700w, {{ project.opening.hero.base | cld(1200) }} 1200w"
+            sizes="(max-width:600px) 100vw, 45vw"
+            width="2304" height="1728"
+            alt="{{ project.title }} — {{ project.shootType }}">
+          {% else %}
+          <img loading="lazy"
+            src="{{ project.opening.hero.base | cld(900) }}"
+            srcset="{{ project.opening.hero.base | cld(700) }} 700w, {{ project.opening.hero.base | cld(1200) }} 1200w"
+            sizes="(max-width:600px) 100vw, 45vw"
+            width="1728" height="2304"
+            alt="{{ project.title }} — {{ project.shootType }}">
+          {% endif %}
+          <p class="shoot-label">{{ project.shootType }}</p>
+          <h2 class="archive-title">{{ project.title }}</h2>
+        </a>
+      </li>
+      {% endif %}{% endfor %}
+    </ul>
+    <p class="home__see-all"><a href="/the-archive/" class="nav-label link-hover">See all work &rarr;</a></p>
+  </section>
+
+</main>
