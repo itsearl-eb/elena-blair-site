@@ -96,6 +96,7 @@ const projects = [
     title: "Alt-Coded",
     shootType: "Creative",
     date: "2025-05-03",
+    featured: true,
     metaDescription:
       "Monochrome streetwear as armor — a character legible only to those who already know the code.",
     standfirst:
