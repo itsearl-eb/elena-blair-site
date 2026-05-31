@@ -45,3 +45,21 @@
   }
   .home__work-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+.error404 {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.error404 .project-title { margin-top: var(--space-2); }
+.error404 .standfirst { margin-top: var(--space-3); }
+.error404__links {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
