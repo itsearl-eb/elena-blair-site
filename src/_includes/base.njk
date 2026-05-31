@@ -7,14 +7,34 @@
   <title>{{ title }}</title>
   {% if metaDescription %}<meta name="description" content="{{ metaDescription }}">{% endif %}
 
-  {% if ogTitle %}
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Elena Blair">
-  <meta property="og:title" content="{{ ogTitle }}">
-  <meta property="og:description" content="{{ ogDescription }}">
-  <meta property="og:url" content="{{ ogUrl }}">
-  <meta property="og:image" content="{{ ogImage }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+  <meta property="og:type" content="{{ ogType or 'website' }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:title" content="{{ ogTitle or title }}">
+  <meta property="og:description" content="{{ ogDescription or metaDescription or site.description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ ogImage or site.defaultOgImage }}">
   <meta name="twitter:card" content="summary_large_image">
+
+  {% if page.url == "/" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ site.name }}",
+    "legalName": "{{ site.legalName }}",
+    "url": "{{ site.url }}",
+    "description": "{{ site.description }}",
+    "email": "{{ site.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kuala Lumpur",
+      "addressCountry": "MY"
+    },
+    "sameAs": ["{{ site.instagram }}"]
+  }
+  </script>
   {% endif %}
 
   <link rel="stylesheet" href="https://use.typekit.net/zbv8ksi.css">
