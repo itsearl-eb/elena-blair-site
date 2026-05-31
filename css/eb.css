@@ -8,255 +8,300 @@
    <link rel="stylesheet" href="https://use.typekit.net/zbv8ksi.css">
    ============================================================ */
 
-:root {
-  /* --- PALETTE (brand sheet §09) --------------------------- */
-  --burgundy:    #6E1E23;   /* accent / punctuation ONLY — never large fields */
-  --onyx:        #151515;   /* body text, wordmark, primary UI bg */
-  --graphite:    #333333;   /* supporting text, input borders, dividers */
-  --dim-grey:    #707070;   /* field labels, subtext, nav links */
-  --parchment:   #F0EEE9;   /* page bg, terms block bg */
-  --bright-snow: #FAFAFA;   /* form bg, button text */
-  --divider:     #E0DED9;   /* hairline dividers (0.5px) */
-
-  /* --- FONT STACKS (brand sheet §06) ----------------------- */
-  --font-display: "kepler-std-extended-display", Georgia, "Times New Roman", serif;
-  --font-body:    "kepler-std", Georgia, "Times New Roman", serif;
-  --font-caption: "kepler-std-caption", Georgia, "Times New Roman", serif;
-
-  /* --- TYPE SCALE — sizes (screen column, brand sheet §06) -- */
-  --size-h1:        clamp(48px, 6vw, 92px);
-  --size-title:     clamp(44px, 6vw, 76px);  /* project-page masthead title (title block / opener) */
-  --size-h2-lg:     48px;
-  --size-h2-sm:     25px;
-  --size-h3:        22px;
-  --size-archive:   21px;   /* archive card title — site spec §02 */
-  --size-h4:        18px;
-  --size-standfirst: 20px;  /* project-page deck — kepler-std italic, the one italic use */
-  --size-body:      16px;
-  --size-caption:   14px;
-  --size-label:     12px;   /* nav, buttons, section + field labels (screen min) */
-
-  /* --- TRACKING (brand sheet §06; em on labels, px on display) */
-  --track-h1:       -3.7px;
-  --track-h2-lg:    -2.0px;
-  --track-h2-sm:    -1.0px;
-  --track-h3:       -1.0px;
-  --track-h4:       -0.7px;
-  --track-body:     -0.3px;
-  --track-nav:      0.22em;
-  --track-field:    0.15em;
-  --track-section:  0.24em;
-
-  /* --- LINE-HEIGHT (NOT in brand sheet — editorial defaults) */
-  --lh-display:   1.05;   /* h1 / h2-lg */
-  --lh-heading:   1.15;   /* h2-sm / h3 / h4 / archive */
-  --lh-body:      1.7;
-  --lh-caption:   1.4;
-  --lh-label:     1;      /* single-line tracked labels */
-
-  /* --- WEIGHTS --------------------------------------------- */
-  --w-display: 500;
-  --w-body:    400;
-
-  /* --- SPACING SCALE (NOT in brand sheet — adjust freely) --- */
-  --space-1: 0.25rem;   /*  4px */
-  --space-2: 0.5rem;    /*  8px */
-  --space-3: 1rem;      /* 16px */
-  --space-4: 1.5rem;    /* 24px */
-  --space-5: 2.5rem;    /* 40px */
-  --space-6: 4rem;      /* 64px */
-  --space-7: 6rem;      /* 96px */
-  --space-8: 8rem;      /* 128px */
-
-  /* --- LAYOUT ---------------------------------------------- */
-  --img-cap:      90vh;    /* project-page image height cap — site spec §03 */
-  --measure:      640px;   /* text column max-width (matches forms) */
-  --hairline:     0.5px;
-}
-
-/* ============================================================
-   BASE
-   ============================================================ */
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
-
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  font-weight: var(--w-body);
-  font-size: var(--size-body);
-  line-height: var(--lh-body);
-  letter-spacing: var(--track-body);
-  color: var(--onyx);
-  background: var(--bright-snow);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-img { display: block; max-width: 100%; height: auto; }
-
-a { color: inherit; text-decoration: none; }
-
-/* ============================================================
-   TYPE ROLES — tag an element with the role, it's fully styled.
-   ============================================================ */
-
-.h1 {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-h1);
-  letter-spacing: var(--track-h1);
-  line-height: var(--lh-display);
-  color: var(--onyx);
-  margin: 0;
-}
-
-/* Project masthead title — title block or opener overlay. Bigger than h2-lg. */
-.project-title {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-title);
-  letter-spacing: var(--track-h2-lg);
-  line-height: var(--lh-display);
-  color: var(--onyx);
-  margin: 0;
-}
-
-.h2-lg {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-h2-lg);
-  letter-spacing: var(--track-h2-lg);
-  line-height: var(--lh-display);
-  color: var(--onyx);
-  margin: 0;
-}
-
-.h2-sm {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-h2-sm);
-  letter-spacing: var(--track-h2-sm);
-  line-height: var(--lh-heading);
-  color: var(--onyx);
-  margin: 0;
-}
-
-.h3 {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-h3);
-  letter-spacing: var(--track-h3);
-  line-height: var(--lh-heading);
-  color: var(--onyx);
-  margin: 0;
-}
-
-.h4 {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-h4);
-  letter-spacing: var(--track-h4);
-  line-height: var(--lh-heading);
-  color: var(--onyx);
-  margin: 0;
-}
-
-/* Archive card title — site spec §02 (~21px, legible not whispered) */
-.archive-title {
-  font-family: var(--font-display);
-  font-weight: var(--w-display);
-  font-size: var(--size-archive);
-  letter-spacing: var(--track-h3);
-  line-height: var(--lh-heading);
-  color: var(--onyx);
-  margin: 0;
-}
-
-/* Standfirst — project page §04. THE ONLY ITALIC IN THE SYSTEM.
-   kepler-std (standard optical size) italic, 400. Italic is the editorial signal,
-   so the family stays the quieter, more legible standard cut — not display.
-   ⚠ Italic is scoped to THIS element only. Do not use italic anywhere else
-   (no italic headings, credits, captions, nav). One face, hierarchy by variant. */
-.standfirst {
-  font-family: var(--font-body);
-  font-weight: var(--w-body);
-  font-style: italic;
-  font-size: var(--size-standfirst);
-  letter-spacing: var(--track-body);
-  line-height: 1.4;
-  color: var(--graphite);
-  margin: 0;
-}
-
-.body {
-  font-family: var(--font-body);
-  font-weight: var(--w-body);
-  font-size: var(--size-body);
-  letter-spacing: var(--track-body);
-  line-height: var(--lh-body);
-  color: var(--onyx);
-  margin: 0;
-}
-
-/* Caption / metadata — dates, credit lines */
-.caption {
-  font-family: var(--font-caption);
-  font-weight: var(--w-body);
-  font-size: var(--size-caption);
-  letter-spacing: normal;
-  line-height: var(--lh-caption);
-  color: var(--dim-grey);
-  margin: 0;
-}
-
-/* Section label — "01 — STUDIO". Burgundy, uppercase, tracked. */
-.section-label {
-  font-family: var(--font-body);
-  font-weight: var(--w-body);
-  font-size: var(--size-label);
-  letter-spacing: var(--track-section);
-  line-height: var(--lh-label);
-  text-transform: uppercase;
-  color: var(--burgundy);
-  margin: 0;
-}
-
-/* Shoot-type label — archive cards + project page top. Burgundy, uppercase. */
-.shoot-label {
-  font-family: var(--font-body);
-  font-weight: var(--w-body);
-  font-size: var(--size-label);
-  letter-spacing: var(--track-section);
-  line-height: var(--lh-label);
-  text-transform: uppercase;
-  color: var(--burgundy);
-  margin: 0;
-}
-
-/* Nav / button label — uppercase, tracked, dim grey. */
-.nav-label {
-  font-family: var(--font-body);
-  font-weight: var(--w-body);
-  font-size: var(--size-label);
-  letter-spacing: var(--track-nav);
-  line-height: var(--lh-label);
-  text-transform: uppercase;
-  color: var(--dim-grey);
-}
-
-/* ============================================================
-   UTILITY
-   ============================================================ */
-
-.divider {
-  border: none;
-  border-top: var(--hairline) solid var(--divider);
-  margin: 0;
-}
-
-/* Hover convention — title onyx → burgundy (archive cards, next-links) */
-.link-hover { transition: color 0.2s ease; cursor: pointer; }
-.link-hover:hover { color: var(--burgundy); }
+   :root {
+    /* --- PALETTE (brand sheet §09) --------------------------- */
+    --burgundy:    #6E1E23;   /* accent / punctuation ONLY — never large fields */
+    --onyx:        #151515;   /* body text, wordmark, primary UI bg */
+    --graphite:    #333333;   /* supporting text, input borders, dividers */
+    --dim-grey:    #707070;   /* field labels, subtext, nav links */
+    --parchment:   #F0EEE9;   /* page bg, terms block bg */
+    --bright-snow: #FAFAFA;   /* form bg, button text */
+    --divider:     #E0DED9;   /* hairline dividers (0.5px) */
+  
+    /* --- FONT STACKS (brand sheet §06) ----------------------- */
+    --font-display: "kepler-std-extended-display", Georgia, "Times New Roman", serif;
+    --font-body:    "kepler-std", Georgia, "Times New Roman", serif;
+    --font-caption: "kepler-std-caption", Georgia, "Times New Roman", serif;
+  
+    /* --- TYPE SCALE — sizes (screen column, brand sheet §06) -- */
+    --size-h1:        clamp(48px, 6vw, 92px);
+    --size-title:     clamp(24px, 7vw, 76px);  /* project-page masthead title — fluid, scales down on mobile */
+    --size-h2-lg:     48px;
+    --size-h2-sm:     25px;
+    --size-h3:        22px;
+    --size-archive:   21px;   /* archive card title — site spec §02 */
+    --size-h4:        18px;
+    --size-standfirst: clamp(14px, 4vw, 20px);  /* project-page deck — kepler-std italic; fluid, the one italic use */
+    --size-body:      16px;
+    --size-caption:   14px;
+    --size-label:     12px;   /* nav, buttons, section + field labels (screen min) */
+  
+    /* --- TRACKING (brand sheet §06; em on labels, px on display) */
+    --track-h1:       -3.7px;
+    --track-h2-lg:    -2.0px;
+    --track-h2-sm:    -1.0px;
+    --track-h3:       -1.0px;
+    --track-h4:       -0.7px;
+    --track-body:     -0.3px;
+    --track-nav:      0.22em;
+    --track-field:    0.15em;
+    --track-section:  0.24em;
+  
+    /* --- LINE-HEIGHT (NOT in brand sheet — editorial defaults) */
+    --lh-display:   1.05;   /* h1 / h2-lg */
+    --lh-heading:   1.15;   /* h2-sm / h3 / h4 / archive */
+    --lh-body:      1.7;
+    --lh-caption:   1.4;
+    --lh-label:     1;      /* single-line tracked labels */
+  
+    /* --- WEIGHTS --------------------------------------------- */
+    --w-display: 500;
+    --w-body:    400;
+  
+    /* --- SPACING SCALE (NOT in brand sheet — adjust freely) --- */
+    --space-1: 0.25rem;   /*  4px */
+    --space-2: 0.5rem;    /*  8px */
+    --space-3: 1rem;      /* 16px */
+    --space-4: 1.5rem;    /* 24px */
+    --space-5: 2.5rem;    /* 40px */
+    --space-6: 4rem;      /* 64px */
+    --space-7: 6rem;      /* 96px */
+    --space-8: 8rem;      /* 128px */
+  
+    /* --- LAYOUT ---------------------------------------------- */
+    --img-cap:      90vh;    /* project-page image height cap — site spec §03 */
+    --measure:      640px;   /* text column max-width (matches forms) */
+    --hairline:     0.5px;
+  }
+  
+  /* ============================================================
+     BASE
+     ============================================================ */
+  
+  *, *::before, *::after { box-sizing: border-box; }
+  
+  html { -webkit-text-size-adjust: 100%; }
+  
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: var(--w-body);
+    font-size: var(--size-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--track-body);
+    color: var(--onyx);
+    background: var(--bright-snow);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  
+  img { display: block; max-width: 100%; height: auto; }
+  
+  a { color: inherit; text-decoration: none; }
+  
+  /* ============================================================
+     TYPE ROLES — tag an element with the role, it's fully styled.
+     ============================================================ */
+  
+  .h1 {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-h1);
+    letter-spacing: var(--track-h1);
+    line-height: var(--lh-display);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  /* Project masthead title — title block or opener overlay. Bigger than h2-lg. */
+  .project-title {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-title);
+    letter-spacing: var(--track-h2-lg);
+    line-height: var(--lh-display);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  .h2-lg {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-h2-lg);
+    letter-spacing: var(--track-h2-lg);
+    line-height: var(--lh-display);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  .h2-sm {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-h2-sm);
+    letter-spacing: var(--track-h2-sm);
+    line-height: var(--lh-heading);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  .h3 {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-h3);
+    letter-spacing: var(--track-h3);
+    line-height: var(--lh-heading);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  .h4 {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-h4);
+    letter-spacing: var(--track-h4);
+    line-height: var(--lh-heading);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  /* Archive card title — site spec §02 (~21px, legible not whispered) */
+  .archive-title {
+    font-family: var(--font-display);
+    font-weight: var(--w-display);
+    font-size: var(--size-archive);
+    letter-spacing: var(--track-h3);
+    line-height: var(--lh-heading);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  /* Standfirst — project page §04. THE ONLY ITALIC IN THE SYSTEM.
+     kepler-std (standard optical size) italic, 400. Italic is the editorial signal,
+     so the family stays the quieter, more legible standard cut — not display.
+     ⚠ Italic is scoped to THIS element only. Do not use italic anywhere else
+     (no italic headings, credits, captions, nav). One face, hierarchy by variant. */
+  .standfirst {
+    font-family: var(--font-body);
+    font-weight: var(--w-body);
+    font-style: italic;
+    font-size: var(--size-standfirst);
+    letter-spacing: var(--track-body);
+    line-height: 1.4;
+    color: var(--graphite);
+    margin: 0;
+  }
+  
+  .body {
+    font-family: var(--font-body);
+    font-weight: var(--w-body);
+    font-size: var(--size-body);
+    letter-spacing: var(--track-body);
+    line-height: var(--lh-body);
+    color: var(--onyx);
+    margin: 0;
+  }
+  
+  /* Caption / metadata — dates, credit lines */
+  .caption {
+    font-family: var(--font-caption);
+    font-weight: var(--w-body);
+    font-size: var(--size-caption);
+    letter-spacing: normal;
+    line-height: var(--lh-caption);
+    color: var(--dim-grey);
+    margin: 0;
+  }
+  
+  /* Section label — "01 — STUDIO". Burgundy, uppercase, tracked. */
+  .section-label {
+    font-family: var(--font-body);
+    font-weight: var(--w-body);
+    font-size: var(--size-label);
+    letter-spacing: var(--track-section);
+    line-height: var(--lh-label);
+    text-transform: uppercase;
+    color: var(--burgundy);
+    margin: 0;
+  }
+  
+  /* Shoot-type label — archive cards + project page top. Burgundy, uppercase. */
+  .shoot-label {
+    font-family: var(--font-body);
+    font-weight: var(--w-body);
+    font-size: var(--size-label);
+    letter-spacing: var(--track-section);
+    line-height: var(--lh-label);
+    text-transform: uppercase;
+    color: var(--burgundy);
+    margin: 0;
+  }
+  
+  /* Nav / button label — uppercase, tracked, dim grey. */
+  .nav-label {
+    font-family: var(--font-body);
+    font-weight: var(--w-body);
+    font-size: var(--size-label);
+    letter-spacing: var(--track-nav);
+    line-height: var(--lh-label);
+    text-transform: uppercase;
+    color: var(--dim-grey);
+  }
+  
+  /* ============================================================
+     UTILITY
+     ============================================================ */
+  
+  .divider {
+    border: none;
+    border-top: var(--hairline) solid var(--divider);
+    margin: 0;
+  }
+  
+  /* Hover convention — title onyx → burgundy (archive cards, next-links) */
+  .link-hover { transition: color 0.2s ease; cursor: pointer; }
+  .link-hover:hover { color: var(--burgundy); }
+  
+  /* ============================================================
+     SHARED LAYOUT + SITE CHROME  (used by every page: project, archive, home)
+     ============================================================ */
+  
+  /* centered text column — credits, standfirst, any measured block */
+  .measure {
+    max-width: var(--measure);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  
+  /* site nav — full-width bar; wordmark left, links right. Wordmark = home/about link. */
+  .site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--space-4);
+  }
+  .site-nav nav {
+    display: flex;
+    gap: var(--space-4);
+  }
+  /* wordmark (direct child <a>) + nav links both hover to burgundy */
+  .site-nav > a,
+  .site-nav .nav-label { transition: color 0.2s ease; }
+  .site-nav > a:hover,
+  .site-nav .nav-label:hover { color: var(--burgundy); }
+  
+  /* site footer — full-width bar, hairline top */
+  .site-footer {
+    margin-top: var(--space-7);
+    padding: var(--space-5) var(--space-4) var(--space-6);
+    border-top: var(--hairline) solid var(--divider);
+  }
+  .site-footer p { margin: 0; }
+  
+  /* ---- MOBILE: nav stays one row (two links now fit); tighten to be safe ---- */
+  @media (max-width: 600px) {
+    .site-nav { padding: var(--space-3); }
+    .site-nav nav { gap: var(--space-3); }
+    .site-nav .nav-label { letter-spacing: 0.14em; }
+  }
