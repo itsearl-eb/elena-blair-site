@@ -17,14 +17,7 @@
 /* ---- PAGE SHELL ---------------------------------------------- */
 .project { padding-top: var(--space-6); padding-bottom: var(--space-8); }
 
-/* narrow text measure — title / standfirst / credits */
-.measure {
-  max-width: var(--measure);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--space-4);
-  padding-right: var(--space-4);
-}
+/* .measure (centered text column) now lives in eb.css — shared by all pages */
 
 /* ---- FULL-WIDTH FRAME (primitive 1) -------------------------- */
 .frame {
@@ -89,7 +82,7 @@
   /* deliberately NO background / scrim / gradient */
 }
 .opening__type .shoot-label   { margin-bottom: var(--space-3); }
-.opening__type .project-title { margin-bottom: var(--space-3); }
+.opening__type .project-title { margin-bottom: 0.22em; }   /* em → gap scales with the title size at every width */
 .opening__type .standfirst    { max-width: 32ch; }
 
 /* tonal modes:
@@ -157,5 +150,10 @@
   .pair img { max-width: 100%; max-height: 88vh; }
   .opening__media { max-width: 100vw; }
   .opening__media img { max-width: 100%; }
-  .opening__type { top: var(--space-4); left: var(--space-4); max-width: 80%; }
+  /* hold the whole type group in the left quiet zone, off the subject */
+  .opening__type { top: var(--space-4); left: var(--space-4); max-width: 70%; }
+  /* rhythm: label tight to title; title→standfirst gap handled by the em base rule (scales itself) */
+  .opening__type .shoot-label   { margin-bottom: var(--space-2); }
+  /* narrower standfirst so it wraps tight and doesn't span into the subject */
+  .opening__type .standfirst    { max-width: 22ch; }
 }
