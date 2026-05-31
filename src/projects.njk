@@ -53,6 +53,10 @@ eleventyComputed:
     <dl>
       {% for c in project.credits %}<dt>{{ c.role }}</dt><dd>{{ c.name }}</dd>{% endfor %}
     </dl>
+    <dt>{{ credit.role }}</dt>
+<dd>
+  {% if credit.url %}<a href="{{ credit.url }}" class="link-hover" target="_blank" rel="noopener">{{ credit.name }}</a>{% else %}{{ credit.name }}{% endif %}
+</dd>
   </section>
 
   <nav class="next">
