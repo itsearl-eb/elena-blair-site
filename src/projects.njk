@@ -56,7 +56,8 @@ eleventyComputed:
   </section>
 
   <nav class="next">
-    <a href="/projects/{{ project.next.slug }}/">next &rarr; {{ project.next.title }}</a>
-  </nav>
+  <a href="/projects/{{ project.next.slug }}/" class="next__primary">next &rarr; {{ project.next.title }}</a>
+  <a href="/the-archive/" class="next__back nav-label link-hover">the archive</a>
+</nav>
 
 </main>
