@@ -50,13 +50,13 @@ eleventyComputed:
   {% endfor %}
 
   <section class="credits caption">
-    <dl>
-      {% for c in project.credits %}<dt>{{ c.role }}</dt>
-      <dd>{% if credit.url %}<a href="{{ credit.url }}" class="link-hover" target="_blank" rel="noopener">{{ credit.name }}</a>{% else %}{{ credit.name }}{% endif %}</dd>
-      {% endfor %}
-    </dl>
+  <dl>
+    {% for c in project.credits %}<dt>{{ c.role }}</dt>
+    <dd>{% if c.url %}<a href="{{ c.url }}" class="link-hover" target="_blank" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}</dd>
+    {% endfor %}
+  </dl>
+</section>
     
-  </section>
 
   <nav class="next">
   <a href="/projects/{{ project.next.slug }}/" class="next__primary">next &rarr; {{ project.next.title }}</a>
