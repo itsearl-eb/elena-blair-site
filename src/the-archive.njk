@@ -4,26 +4,23 @@ layout: base.njk
 title: "The Archive — Elena Blair"
 metaDescription: "Authored editorial sets by Elena Blair. Based in Kuala Lumpur. Available by commission."
 ---
-{# ⚠️ This generates the archive grid from _data/projects.js (newest-first).
-   It assumes archive CSS exists in eb.css/project.css:
-   .archive-grid (2-up), .archive-card, .archive-title, plus the .shoot-label /
-   is-portrait / is-landscape rules already in use. If those classes aren't
-   written yet, the markup is correct but unstyled — confirm/author the archive
-   CSS, then this page needs no further edits as projects grow. #}
+{# 2-up triage grid from _data/projects.js (newest-first).
+   Card image = each project's opening hero. To use a different cover later,
+   add a `cover` field to the manifest and read it here. Styling: css/archive.css. #}
 <main class="archive">
   <ul class="archive-grid">
     {% for project in projects %}
     <li class="archive-card">
       <a href="/projects/{{ project.slug }}/">
         {% if project.opening.hero.orientation == "landscape" %}
-        <img loading="lazy" class="is-landscape"
+        <img loading="lazy"
           src="{{ project.opening.hero.base | cld(1000) }}"
           srcset="{{ project.opening.hero.base | cld(700) }} 700w, {{ project.opening.hero.base | cld(1200) }} 1200w"
           sizes="(max-width:600px) 100vw, 45vw"
           width="2304" height="1728"
           alt="{{ project.title }} — {{ project.shootType }}">
         {% else %}
-        <img loading="lazy" class="is-portrait"
+        <img loading="lazy"
           src="{{ project.opening.hero.base | cld(900) }}"
           srcset="{{ project.opening.hero.base | cld(700) }} 700w, {{ project.opening.hero.base | cld(1200) }} 1200w"
           sizes="(max-width:600px) 100vw, 45vw"
