@@ -1,0 +1,193 @@
+/* ============================================================
+   ELENA BLAIR — Commission Page (commission.css)
+   Form-control styles ONLY. All tokens come from eb.css :root.
+   Scoped to .commission / .enquiry so nothing leaks to other pages.
+   Type roles (.section-label, .h2-lg, .divider, .caption) are eb.css.
+   NOTE: no italic anywhere here — italic is scoped to .standfirst (eb.css).
+   ============================================================ */
+
+/* ---- page frame ---- */
+.commission {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+
+.commission__intro {
+  border-bottom: var(--hairline) solid var(--divider);
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+.commission__intro h1 { margin-bottom: var(--space-3); }
+
+.commission__lead {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.9;
+  letter-spacing: var(--track-body);
+  color: var(--graphite);
+  margin: 0 0 var(--space-2);
+}
+.commission__lead--quiet { color: var(--dim-grey); margin: 0; }
+
+/* ---- section labels (reuse eb.css .section-label) spacing ---- */
+.enquiry .section-label { margin: var(--space-5) 0 var(--space-4); }
+
+/* ---- fields ---- */
+.enquiry .field { margin-bottom: var(--space-4); }
+
+.enquiry .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--space-4);
+}
+
+.enquiry .field-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--size-label);          /* 12px */
+  letter-spacing: var(--track-field);    /* 0.15em */
+  text-transform: uppercase;
+  color: var(--dim-grey);
+  margin-bottom: var(--space-2);
+}
+
+.enquiry .req { color: var(--burgundy); margin-left: 2px; }
+
+/* ---- inputs / selects / textareas ---- */
+.enquiry input[type="text"],
+.enquiry input[type="email"],
+.enquiry input[type="tel"],
+.enquiry input[type="url"],
+.enquiry select,
+.enquiry textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: var(--hairline) solid var(--graphite);
+  padding: var(--space-2) 0;
+  font-family: var(--font-body);
+  font-weight: var(--w-body);
+  font-size: 15px;
+  color: var(--onyx);
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s ease;
+}
+
+.enquiry input:focus,
+.enquiry select:focus,
+.enquiry textarea:focus { border-bottom-color: var(--burgundy); }
+
+.enquiry textarea { resize: vertical; min-height: 80px; line-height: 1.7; }
+
+.enquiry select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23707070' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.25rem center;
+  padding-right: 1.5rem;
+}
+
+/* ---- helper (NOT italic — eb.css italic rule) ---- */
+.enquiry .helper {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--size-label);   /* 12px */
+  color: var(--dim-grey);
+  margin-top: var(--space-1);
+}
+
+/* ---- checkboxes / radios ---- */
+.enquiry .check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: var(--space-1);
+}
+.enquiry .check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--graphite);
+  cursor: pointer;
+}
+.enquiry .check-item input[type="checkbox"],
+.enquiry .check-item input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--burgundy);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ---- error states ---- */
+.enquiry .field.field-error .field-label { color: var(--burgundy); }
+.enquiry .field.field-error input,
+.enquiry .field.field-error select,
+.enquiry .field.field-error textarea { border-bottom-color: var(--burgundy); }
+.enquiry .field-error-msg {
+  display: none;
+  font-family: var(--font-body);
+  font-size: var(--size-label);   /* 12px */
+  color: var(--burgundy);
+  margin-top: var(--space-1);
+}
+
+/* ---- submit ---- */
+.enquiry .submit-wrap { margin-top: var(--space-5); }
+.enquiry button[type="submit"] {
+  background: var(--onyx);
+  color: var(--bright-snow);
+  border: none;
+  padding: 1rem 3rem;
+  font-family: var(--font-body);
+  font-weight: var(--w-body);
+  font-size: var(--size-label);          /* 12px */
+  letter-spacing: var(--track-nav);      /* 0.22em */
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.enquiry button[type="submit"]:hover { background: var(--burgundy); }
+.enquiry button[type="submit"]:disabled { background: var(--dim-grey); cursor: not-allowed; }
+
+.enquiry .footer-note {
+  font-family: var(--font-body);
+  font-size: var(--size-label);   /* 12px */
+  color: var(--dim-grey);
+  line-height: 1.8;
+  margin-top: var(--space-4);
+}
+
+.enquiry .error-msg {
+  display: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--burgundy);
+  margin-top: var(--space-4);
+}
+
+/* ---- success (sits outside the form; revealed on submit) ---- */
+.enquiry__success {
+  border-top: var(--hairline) solid var(--divider);
+  padding-top: var(--space-5);
+  margin-top: var(--space-5);
+}
+.enquiry__success p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--graphite);
+  margin: 0;
+}
+
+/* ---- mobile ---- */
+@media (max-width: 600px) {
+  .enquiry .two-col { grid-template-columns: 1fr; gap: 0; }
+  .commission { padding-top: var(--space-5); padding-bottom: var(--space-6); }
+}
