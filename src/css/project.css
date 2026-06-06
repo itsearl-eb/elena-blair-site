@@ -140,7 +140,7 @@
   gap: var(--space-4);
 }
 .next__primary { font-family: var(--font-display); font-size: var(--size-h4); letter-spacing: var(--track-h4); color: var(--onyx); }
-.next a:hover { color: var(--burgundy); }
+.next__primary:hover { color: var(--burgundy); }
 .next__back { color: var(--dim-grey); }
 
 /* ============================================================
