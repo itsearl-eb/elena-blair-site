@@ -191,3 +191,9 @@
   .enquiry .two-col { grid-template-columns: 1fr; gap: 0; }
   .commission { padding-top: var(--space-5); padding-bottom: var(--space-6); }
 }
+
+.commission--center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
