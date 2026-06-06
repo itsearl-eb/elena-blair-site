@@ -36,23 +36,34 @@ exports.handler = async function (event) {
     fields.append("label-type", "Event Type");
     fields.append("field-type", shootType);
 
+    // Reads back like a filled-in form: every line carries its own question,
+    // empty optionals show "—" so you can see what was skipped.
+    function val(x) { return (x && String(x).trim()) ? x : "—"; }
+
     var comments = "";
-    if (data.company) comments += "Company: " + data.company + "\n";
-    if (data.role) comments += "Role: " + data.role + "\n";
-    if (data.instagram) comments += "Instagram: " + data.instagram + "\n";
-    if (data.website) comments += "Website: " + data.website + "\n";
-    if (data.how_found) comments += "How they found us: " + data.how_found + "\n";
-    comments += "\nPROJECT\n";
-    if (data.project_type) comments += "Type: " + data.project_type + "\n";
-    if (data.deliverables) comments += "Deliverables: " + data.deliverables + "\n";
-    if (data.usage) comments += "Usage: " + data.usage + "\n";
-    if (data.territory) comments += "Territory: " + data.territory + "\n";
-    if (data.timeline) comments += "Timeline: " + data.timeline + "\n";
-    if (data.budget) comments += "Budget: " + data.budget + "\n";
-    comments += "\nBRIEF\n";
-    if (data.brief) comments += data.brief + "\n";
-    if (data.references) comments += "\nReferences: " + data.references + "\n";
-    if (data.anything_else) comments += "\nAdditional: " + data.anything_else + "\n";
+    comments += "WHO THEY ARE\n";
+    comments += "Name: " + val(data.first_name) + " " + val(data.last_name) + "\n";
+    comments += "Email: " + val(data.email) + "\n";
+    comments += "WhatsApp / Phone: " + val(data.phone) + "\n";
+    comments += "Company / brand: " + val(data.company) + "\n";
+    comments += "Your role: " + val(data.role) + "\n";
+    comments += "Instagram: " + val(data.instagram) + "\n";
+    comments += "Website: " + val(data.website) + "\n";
+    comments += "How did you find us? " + val(data.how_found) + "\n";
+
+    comments += "\nTHE PROJECT\n";
+    comments += "Type of project: " + val(data.project_type) + "\n";
+    comments += "Deliverables: " + val(data.deliverables) + "\n";
+    comments += "Intended usage: " + val(data.usage) + "\n";
+    comments += "Territory: " + val(data.territory) + "\n";
+    comments += "Timeline: " + val(data.timeline) + "\n";
+    comments += "Budget range: " + val(data.budget) + "\n";
+
+    comments += "\nTHE BRIEF\n";
+    comments += "Tell us about the project:\n" + val(data.brief) + "\n";
+    comments += "\nReferences:\n" + val(data.references) + "\n";
+    comments += "\nAnything else we should know:\n" + val(data.anything_else) + "\n";
+
     fields.append("label-comments", "Enquiry Notes");
     fields.append("field-comments", comments);
 
