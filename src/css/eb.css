@@ -93,7 +93,10 @@
     background: var(--bright-snow);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    display: flex; flex-direction: column; min-height: 100vh;
   }
+
+  body > main { flex: 1 0 auto; }
   
   img { display: block; max-width: 100%; height: auto; }
   
