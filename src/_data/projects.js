@@ -15,6 +15,99 @@
 const cld = (url, w) => url.replace("/upload/", `/upload/f_auto,q_auto,w_${w}/`);
 
 const projects = [
+ {
+  slug: "center-court",
+  title: "Center Court",
+  shootType: "Creative",
+  date: "2026-06-13",
+  featured: false, // flip to true only if you want it to replace/join Alt-Coded on home
+  metaDescription:
+    "Kidswear editorial in tennis whites — center-court poise worn like it was always hers.",
+  standfirst: "She just walked on.",
+
+  opening: {
+    mode: "A",
+    tone: "dark", // was "light" — flips type to parchment/bright-snow
+    hero: {
+      base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512194/EB_-Elsa-Tan-Creative-13-06-26-26006_jaurva.jpg",
+      orientation: "portrait",
+      alt: "Young tennis player in navy-and-white kit, arms crossed, leveling a cool stare at the camera on an aqua backdrop.",
+    },
+  },
+
+  sequence: [
+    { type: "full", frame: {
+      base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781513522/EB_-Elsa-Tan-Creative-13-06-26-26117_bpuugx.jpg",
+      orientation: "portrait",
+      alt: "Mid-serve, racket raised overhead, one foot up on a stool against aqua.",
+    }},
+
+    { type: "pair", frames: [
+      { base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512219/EB_-Elsa-Tan-Creative-13-06-26-25989_selwzc.jpg",
+        orientation: "portrait",
+        alt: "Laughing with tennis balls tossed in the air around her head." },
+      { base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512328/EB_-Elsa-Tan-Creative-13-06-26-26061_p74xqi.jpg",
+        orientation: "portrait",
+        alt: "Caught mid-throw, tennis balls suspended in the air." },
+    ]},
+
+    { type: "pair", frames: [
+      { base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512409/EB_-Elsa-Tan-Creative-13-06-26-25680_j1mctv.jpg",
+        orientation: "portrait",
+        alt: "Face seen through the strings of a raised tennis racket." },
+      { base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512489/EB_-Elsa-Tan-Creative-13-06-26-26129_xnagst.jpg",
+        orientation: "portrait",
+        alt: "Holding a racket across the face, eyes over the frame, two hands on the grip." },
+    ]},
+
+    { type: "full", frame: {
+      base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781513126/EB_-Elsa-Tan-Creative-13-06-26-25931_zgpc4l.jpg",
+      orientation: "portrait",
+      alt: "Two tennis balls held up over the eyes like goggles.",
+    }},
+
+    { type: "full", frame: {
+      base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512511/EB_-Elsa-Tan-Creative-13-06-26-25594_wj9gld.jpg",
+      orientation: "portrait",
+      alt: "Seated on the floor, leaning back on one arm, full look in view.",
+    }},
+
+    // NOTE: 25856 is a slightly taller crop (~0.726 vs standard 0.75). It's in a
+    // pair so height-matched flex hides it. If the frame model supports a per-frame
+    // ratio override, 25856 ≈ 1672×2304; otherwise default portrait is fine.
+    { type: "pair", frames: [
+      { base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512541/EB_-Elsa-Tan-Creative-13-06-26-25856_qu9kog.jpg",
+        orientation: "portrait",
+        alt: "Hugging a full bag of tennis balls to the chest, chin resting on top." },
+      { base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781513266/EB_-Elsa-Tan-Creative-13-06-26-25869_wyyro1.jpg",
+        orientation: "portrait",
+        alt: "Turned away from camera, swinging an empty ball bag as tennis balls scatter across the floor." },
+    ]},
+
+    { type: "full", frame: {
+      base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781513284/EB_-Elsa-Tan-Creative-13-06-26-25609_w4bfzt.jpg",
+      orientation: "landscape", // the one landscape in the set
+      alt: "Lying back with hair fanned out, sneakers up, shot from above.",
+    }},
+
+    { type: "full", frame: {
+      base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512210/EB_-Elsa-Tan-Creative-13-06-26-26026_ctwmy8.jpg",
+      orientation: "portrait",
+      alt: "Lunging low across the frame, skirt and limbs thrown wide mid-motion.",
+    }},
+  ],
+
+  credits: [
+    { role: "Photography", name: "Earl Kiu" },
+    { role: "Concept & Styling", name: "Earl Kiu" },
+    { role: "Subject", name: "Elsa Tan" },
+    { role: "Hair", name: "Anna Ng" },
+  ],
+
+  ogImageBase:
+    "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512409/EB_-Elsa-Tan-Creative-13-06-26-25680_j1mctv.jpg",
+},
+ 
   {
     slug: "tough-sweet",
     title: "Tough Sweet",
