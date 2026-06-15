@@ -107,6 +107,7 @@ const projects = [
   ogImageBase:
     "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512409/EB_-Elsa-Tan-Creative-13-06-26-25680_j1mctv.jpg",
 },
+ 
   {
     slug: "tough-sweet",
     title: "Tough Sweet",
