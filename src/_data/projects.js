@@ -23,11 +23,11 @@ const projects = [
   featured: false, // flip to true only if you want it to replace/join Alt-Coded on home
   metaDescription:
     "Kidswear editorial in tennis whites — center-court poise worn like it was always hers.",
-  standfirst: "Center court. She just walked on.",
+  standfirst: "She just walked on.",
 
   opening: {
     mode: "A",
-    tone: "light", // light quiet zone -> dark type (onyx title, burgundy label)
+    tone: "dark", // was "light" — flips type to parchment/bright-snow
     hero: {
       base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1781512194/EB_-Elsa-Tan-Creative-13-06-26-26006_jaurva.jpg",
       orientation: "portrait",
