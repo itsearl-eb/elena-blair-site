@@ -1,0 +1,389 @@
+---
+permalink: /quote/index.html
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quote Generator — Elena Blair</title>
+<link rel="stylesheet" href="https://use.typekit.net/zbv8ksi.css">
+<style>
+  :root{
+    --burgundy:#6E1E23;
+    --onyx:#151515;
+    --graphite:#333333;
+    --dim:#707070;
+    --parchment:#F0EEE9;
+    --snow:#FAFAFA;
+    --divider:#E0DED9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--snow);
+    color:var(--onyx);
+    font-family:"kepler-std",Georgia,serif;
+    font-size:15px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:4rem 2rem 6rem;}
+  @media (max-width:600px){.wrap{padding:2.5rem 1.25rem 4rem;}}
+
+  header.masthead{
+    border-bottom:0.5px solid var(--graphite);
+    padding-bottom:1.25rem;
+    margin-bottom:2.5rem;
+  }
+  .wordmark{
+    font-family:"kepler-std-extended-display",Georgia,serif;
+    font-weight:500;font-size:20px;text-transform:uppercase;
+    letter-spacing:0.22em;margin:0;
+  }
+  .subhead{
+    font-size:12px;text-transform:uppercase;letter-spacing:0.18em;
+    color:var(--dim);margin:0.5rem 0 0;
+  }
+
+  .section-label{
+    font-size:12px;text-transform:uppercase;letter-spacing:0.24em;
+    color:var(--burgundy);margin:2.5rem 0 1.25rem;
+    padding-top:1.5rem;border-top:0.5px solid var(--divider);
+  }
+  .section-label:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+
+  label.field-label{
+    display:block;font-size:12px;text-transform:uppercase;
+    letter-spacing:0.15em;color:var(--dim);margin-bottom:0.6rem;
+  }
+  .helper{font-size:12px;font-style:italic;color:var(--dim);margin:0.5rem 0 0;}
+
+  select,input[type="number"]{
+    width:100%;background:transparent;border:none;
+    border-bottom:0.5px solid var(--graphite);border-radius:0;
+    font-family:"kepler-std",Georgia,serif;font-size:15px;color:var(--onyx);
+    padding:0.5rem 0;appearance:none;
+  }
+  select{
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23707070'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 0.2rem center;
+  }
+  select:focus,input:focus{outline:none;border-bottom-color:var(--burgundy);}
+
+  .radio-row{display:flex;gap:2rem;flex-wrap:wrap;}
+  .radio-row label{display:flex;align-items:center;gap:0.5rem;color:var(--graphite);cursor:pointer;}
+  input[type="radio"],input[type="checkbox"]{
+    width:14px;height:14px;accent-color:var(--burgundy);margin:0;cursor:pointer;
+  }
+  .check-row{display:flex;align-items:flex-start;gap:0.6rem;color:var(--graphite);}
+  .check-row input{margin-top:0.45rem;}
+  .check-row.is-disabled{opacity:0.4;pointer-events:none;}
+
+  .field{margin-bottom:2rem;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  @media (max-width:480px){.grid2{grid-template-columns:1fr;}}
+
+  .quote{
+    background:var(--parchment);padding:2rem;margin-top:1rem;
+  }
+  table{width:100%;border-collapse:collapse;}
+  td{padding:0.55rem 0;vertical-align:top;font-size:15px;color:var(--graphite);}
+  td.num{text-align:right;white-space:nowrap;color:var(--onyx);}
+  tr.rule td{border-top:0.5px solid var(--divider);}
+  tr.total td{
+    border-top:0.5px solid var(--graphite);padding-top:1rem;
+    font-family:"kepler-std-extended-display",Georgia,serif;
+    font-weight:500;font-size:22px;letter-spacing:-0.5px;color:var(--onyx);
+  }
+  td.sub{font-size:12px;color:var(--dim);padding-top:0;padding-bottom:0.9rem;line-height:1.6;}
+
+  .terms{
+    margin-top:1.5rem;padding-top:1.25rem;border-top:0.5px solid var(--divider);
+    font-size:12px;line-height:1.8;color:var(--graphite);
+  }
+  .terms p{margin:0 0 0.5rem;}
+
+  button{
+    font-family:"kepler-std",Georgia,serif;font-size:12px;
+    text-transform:uppercase;letter-spacing:0.22em;
+    background:var(--onyx);color:var(--snow);border:none;
+    padding:0.9rem 2rem;cursor:pointer;margin-top:1.5rem;
+  }
+  button:hover{background:var(--burgundy);}
+
+  footer{
+    margin-top:4rem;padding-top:1.5rem;border-top:0.5px solid var(--divider);
+    font-size:12px;color:var(--dim);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="wordmark">Elena Blair</p>
+    <p class="subhead">Quote Generator — Internal</p>
+  </header>
+
+  <p class="section-label">01 — Session</p>
+  <div class="field">
+    <label class="field-label">Session length</label>
+    <div class="radio-row">
+      <label><input type="radio" name="session" value="half" checked> Half day · 4 hours · RM 2,500</label>
+      <label><input type="radio" name="session" value="full"> Full day · 8 hours · RM 4,500</label>
+    </div>
+    <p class="helper">Photographer time and production only. Talent, makeup, styling, wardrobe, props, venue, permits, and travel outside KL are billed separately.</p>
+  </div>
+
+  <p class="section-label">02 — Post-Production</p>
+  <div class="field">
+    <label class="field-label" for="finals">Number of finals</label>
+    <input type="number" id="finals" min="1" max="100" step="1" value="10">
+    <p class="helper">Retouching fixed at RM 200 per final. All finals delivered fully retouched and color-graded.</p>
+  </div>
+
+  <p class="section-label">03 — Licensing</p>
+  <div class="field grid2">
+    <div>
+      <label class="field-label" for="usage">Usage / territory</label>
+      <select id="usage">
+        <option value="0">Editorial / portfolio use</option>
+        <option value="0.5">Commercial — social media only</option>
+        <option value="0.75">Commercial — digital + print collateral</option>
+        <option value="1" selected>Commercial — national campaign (MY)</option>
+        <option value="1.5">Commercial — OOH / billboard (MY)</option>
+        <option value="2">Commercial — TV / broadcast (MY)</option>
+        <option value="2.5">Commercial — regional, any medium (SEA)</option>
+        <option value="3">Commercial — worldwide, any medium</option>
+      </select>
+    </div>
+    <div>
+      <label class="field-label" for="duration">License period</label>
+      <select id="duration">
+        <option value="1" selected>1 year</option>
+        <option value="1.5">2 years</option>
+        <option value="2">3 years / perpetual</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="check-row" id="exclusive-row">
+      <input type="checkbox" id="exclusive">
+      <label for="exclusive">Exclusive — the images are withheld from all other licensees for the license period.</label>
+    </div>
+    <p class="helper">Exclusivity adds 50% and prices at national campaign rate as a minimum, regardless of stated usage. Elena Blair retains portfolio, archive, and editorial use throughout.</p>
+  </div>
+
+  <p class="helper" style="margin-bottom:0.5rem;">Paid digital advertising — banners, programmatic, sponsored posts — is a national campaign minimum regardless of geography. "Website" means the owned brand site only.</p>
+
+  <p class="section-label">04 — Quote</p>
+  <div class="quote">
+    <table>
+      <tr>
+        <td>Session fee</td>
+        <td class="num" id="out-session">RM 2,500</td>
+      </tr>
+      <tr>
+        <td>Post-production</td>
+        <td class="num" id="out-retouch">RM 2,000</td>
+      </tr>
+      <tr><td class="sub" colspan="2" id="out-retouch-sub"></td></tr>
+      <tr class="rule">
+        <td>Licensing</td>
+        <td class="num" id="out-licensing">RM 2,500</td>
+      </tr>
+      <tr><td class="sub" colspan="2" id="out-licensing-sub"></td></tr>
+      <tr class="total">
+        <td>Total</td>
+        <td class="num" id="out-total">RM 7,000</td>
+      </tr>
+    </table>
+
+    <div class="terms">
+      <p id="term-grant"></p>
+      <p id="term-scale"></p>
+      <p>All rates in Malaysian Ringgit. Quote valid 30 days from issue.</p>
+      <p>Copyright in all images remains with Elite Corridor Sdn Bhd. This quote grants a license, not ownership.</p>
+    </div>
+  </div>
+
+  <button id="copy">Copy quote</button>
+
+  <footer>
+    Elena Blair · Elite Corridor Sdn Bhd · sayhello@elenablair.com<br>
+    Internal reference. Not for client distribution in this form.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var RETOUCH   = 200;                        // per final, fixed
+  var SESSION   = { half: 2500, full: 4500 };
+  var BASE      = { half: 250,  full: 450  }; // fixed base rate per image
+  var TAPER_AT  = 10;                         // finals licensed at full base
+  var TAPER_PCT = 0.5;                        // rate for each additional final
+
+  var usageEl  = document.getElementById('usage');
+  var durEl    = document.getElementById('duration');
+  var finalsEl = document.getElementById('finals');
+  var exEl     = document.getElementById('exclusive');
+  var exRow    = document.getElementById('exclusive-row');
+
+  function rm(n){
+    return 'RM ' + Math.round(n).toLocaleString('en-US');
+  }
+
+  function trim(n){
+    return n.toFixed(2).replace(/\.?0+$/,'');
+  }
+
+  function sessionKey(){
+    return document.querySelector('input[name="session"]:checked').value;
+  }
+
+  function calc(){
+    var key  = sessionKey();
+    var fee  = SESSION[key];
+    var base = BASE[key];
+
+    var finals = parseInt(finalsEl.value, 10);
+    if (!finals || finals < 1) finals = 1;
+
+    var geoBase   = parseFloat(usageEl.value);
+    var dur       = parseFloat(durEl.value);
+    var editorial = geoBase === 0;
+
+    // Exclusivity is meaningless on an editorial / portfolio grant.
+    exRow.classList.toggle('is-disabled', editorial);
+    if (editorial) exEl.checked = false;
+
+    var geo = geoBase;
+    if (exEl.checked) geo = Math.max(geoBase, 1) * 1.5;
+
+    var retouch = finals * RETOUCH;
+
+    // Tapered: first TAPER_AT finals at full base, remainder at TAPER_PCT.
+    var atFull    = Math.min(finals, TAPER_AT);
+    var atTaper   = Math.max(finals - TAPER_AT, 0);
+    var baseTotal = (atFull * base) + (atTaper * base * TAPER_PCT);
+
+    var licensing = baseTotal * geo * dur;
+    var firstRate = base * geo * dur;
+    var taperRate = firstRate * TAPER_PCT;
+    var total     = fee + retouch + licensing;
+
+    document.getElementById('out-session').textContent  = rm(fee);
+    document.getElementById('out-retouch').textContent  = rm(retouch);
+    document.getElementById('out-retouch-sub').textContent =
+      finals + ' final' + (finals === 1 ? '' : 's') + ' × ' + rm(RETOUCH);
+    document.getElementById('out-licensing').textContent = rm(licensing);
+
+    var sub;
+    if (editorial) {
+      sub = 'Editorial / portfolio use — no licensing fee.';
+    } else if (atTaper > 0) {
+      sub = atFull + ' × ' + rm(firstRate) + ', then ' + atTaper + ' × ' + rm(taperRate) +
+            '  ·  base ' + rm(base) + ' × ' + trim(geo) + ' × ' + trim(dur);
+    } else {
+      sub = finals + ' × ' + rm(firstRate) +
+            '  ·  base ' + rm(base) + ' × ' + trim(geo) + ' × ' + trim(dur);
+    }
+    document.getElementById('out-licensing-sub').textContent = sub;
+    document.getElementById('out-total').textContent = rm(total);
+
+    var scaleNote = editorial
+      ? 'No commercial licensing applies to this grant.'
+      : 'Licensing is priced per image. The first ' + TAPER_AT +
+        ' finals license at full rate; each additional final at 50%. Adding finals increases both post-production and licensing.';
+    document.getElementById('term-scale').textContent = scaleNote;
+
+    var grant;
+    if (editorial) {
+      grant = 'Editorial and portfolio use. No commercial license granted.';
+    } else {
+      grant = usageEl.options[usageEl.selectedIndex].text.replace(/^Commercial — /,'') +
+              ', ' + durEl.options[durEl.selectedIndex].text.toLowerCase() + ', ' +
+              (exEl.checked ? 'exclusive' : 'non-exclusive') + '.';
+      grant = grant.charAt(0).toUpperCase() + grant.slice(1);
+      if (exEl.checked) {
+        grant += ' Images withheld from all other licensees for the license period; Elena Blair retains portfolio, archive, and editorial use.';
+      }
+    }
+    document.getElementById('term-grant').textContent = grant;
+
+    return {
+      fee: fee, finals: finals, retouch: retouch,
+      atFull: atFull, atTaper: atTaper,
+      firstRate: firstRate, taperRate: taperRate,
+      licensing: licensing, total: total,
+      editorial: editorial, grant: grant, scaleNote: scaleNote
+    };
+  }
+
+  function plain(){
+    var d = calc();
+    var L = [];
+    L.push('ELENA BLAIR — QUOTE');
+    L.push('');
+    L.push('Session fee  ' + rm(d.fee));
+    L.push('Post-production (' + d.finals + ' × ' + rm(RETOUCH) + ')  ' + rm(d.retouch));
+    if (d.editorial) {
+      L.push('Licensing  —');
+    } else if (d.atTaper > 0) {
+      L.push('Licensing (' + d.atFull + ' × ' + rm(d.firstRate) +
+             ', then ' + d.atTaper + ' × ' + rm(d.taperRate) + ')  ' + rm(d.licensing));
+    } else {
+      L.push('Licensing (' + d.finals + ' × ' + rm(d.firstRate) + ')  ' + rm(d.licensing));
+    }
+    L.push('TOTAL  ' + rm(d.total));
+    L.push('');
+    L.push('License granted: ' + d.grant);
+    L.push(d.scaleNote);
+    L.push('');
+    L.push('Session fee covers photographer time and production only. Talent, makeup, styling, wardrobe, props, venue, permits, and travel outside Kuala Lumpur are billed separately.');
+    L.push('Copyright in all images remains with Elite Corridor Sdn Bhd. This quote grants a license, not ownership.');
+    L.push('All rates in Malaysian Ringgit. Valid 30 days from issue.');
+    L.push('');
+    L.push('Elena Blair · Elite Corridor Sdn Bhd · sayhello@elenablair.com');
+    return L.join('\n');
+  }
+
+  ['change','input'].forEach(function(evt){
+    document.addEventListener(evt, calc);
+  });
+
+  document.getElementById('copy').addEventListener('click', function(){
+    var btn  = this;
+    var text = plain();
+    var done = function(){
+      btn.textContent = 'Copied';
+      setTimeout(function(){ btn.textContent = 'Copy quote'; }, 1600);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  });
+
+  function fallback(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  calc();
+})();
+</script>
+</body>
+</html>
