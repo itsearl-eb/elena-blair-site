@@ -1,0 +1,646 @@
+---
+permalink: /quote/index.html
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quote Generator — Elena Blair</title>
+<link rel="stylesheet" href="https://use.typekit.net/zbv8ksi.css">
+<style>
+  :root{
+    --burgundy:#6E1E23;
+    --onyx:#151515;
+    --graphite:#333333;
+    --dim:#707070;
+    --parchment:#F0EEE9;
+    --snow:#FAFAFA;
+    --divider:#E0DED9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--snow);
+    color:var(--onyx);
+    font-family:"kepler-std",Georgia,serif;
+    font-size:15px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:4rem 2rem 6rem;}
+  @media (max-width:600px){.wrap{padding:2.5rem 1.25rem 4rem;}}
+
+  header.masthead{
+    border-bottom:0.5px solid var(--graphite);
+    padding-bottom:1.25rem;
+    margin-bottom:2.5rem;
+  }
+  .wordmark{
+    font-family:"kepler-std-extended-display",Georgia,serif;
+    font-weight:500;font-size:20px;text-transform:uppercase;
+    letter-spacing:0.22em;margin:0;
+  }
+  .subhead{
+    font-size:12px;text-transform:uppercase;letter-spacing:0.18em;
+    color:var(--dim);margin:0.5rem 0 0;
+  }
+
+  .section-label{
+    font-size:12px;text-transform:uppercase;letter-spacing:0.24em;
+    color:var(--burgundy);margin:2.5rem 0 1.25rem;
+    padding-top:1.5rem;border-top:0.5px solid var(--divider);
+  }
+  .section-label.first{border-top:none;padding-top:0;margin-top:0;}
+
+  label.field-label{
+    display:block;font-size:12px;text-transform:uppercase;
+    letter-spacing:0.15em;color:var(--dim);margin-bottom:0.6rem;
+  }
+  .helper{font-size:12px;font-style:italic;color:var(--dim);margin:0.5rem 0 0;}
+
+  select,input[type="number"],input[type="text"],textarea{
+    width:100%;background:transparent;border:none;
+    border-bottom:0.5px solid var(--graphite);border-radius:0;
+    font-family:"kepler-std",Georgia,serif;font-size:15px;color:var(--onyx);
+    padding:0.5rem 0;appearance:none;
+  }
+  textarea{min-height:80px;resize:vertical;line-height:1.7;}
+  select{
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23707070'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 0.2rem center;
+    padding-right:1.75rem;text-overflow:ellipsis;
+  }
+  select:focus,input:focus,textarea:focus{outline:none;border-bottom-color:var(--burgundy);}
+
+  .radio-col{display:flex;flex-direction:column;gap:0.7rem;}
+  .radio-col label{display:flex;align-items:center;gap:0.6rem;color:var(--graphite);cursor:pointer;}
+  input[type="radio"],input[type="checkbox"]{
+    width:14px;height:14px;accent-color:var(--burgundy);margin:0;cursor:pointer;flex:none;
+  }
+  .check-row{display:flex;align-items:flex-start;gap:0.6rem;color:var(--graphite);}
+  .check-row input{margin-top:0.45rem;}
+  .check-row.is-disabled{opacity:0.4;pointer-events:none;}
+
+  .field{margin-bottom:2rem;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+  @media (max-width:480px){.grid2{grid-template-columns:1fr;}}
+
+  /* expenses */
+  .exp-row{display:grid;grid-template-columns:1fr 130px 28px;gap:1rem;align-items:end;margin-bottom:1rem;}
+  .exp-row .rm{position:relative;}
+  .exp-del{
+    background:none;border:none;color:var(--dim);font-size:18px;line-height:1;
+    padding:0 0 0.5rem;margin:0;cursor:pointer;letter-spacing:0;
+  }
+  .exp-del:hover{background:none;color:var(--burgundy);}
+  .link-btn{
+    background:none;border:none;padding:0;margin:0.5rem 0 0;
+    font-family:"kepler-std",Georgia,serif;font-size:12px;
+    text-transform:uppercase;letter-spacing:0.15em;color:var(--burgundy);cursor:pointer;
+  }
+  .link-btn:hover{background:none;text-decoration:underline;}
+
+  /* quote panel */
+  .quote{background:var(--parchment);padding:2rem;margin-top:1rem;}
+  .quote-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;flex-wrap:wrap;
+    padding-bottom:1rem;margin-bottom:1rem;
+    border-bottom:0.5px solid var(--graphite);
+  }
+  input.ref{
+    font-family:"kepler-std-caption",Georgia,serif;font-size:14px;color:var(--dim);
+    width:auto;max-width:180px;text-align:right;
+    border-bottom:0.5px solid transparent;padding:0;
+  }
+  input.ref:hover{border-bottom-color:var(--divider);}
+  input.ref:focus{border-bottom-color:var(--burgundy);color:var(--onyx);}
+  .quote-head .who{
+    font-family:"kepler-std-extended-display",Georgia,serif;
+    font-weight:500;font-size:18px;letter-spacing:-0.7px;color:var(--onyx);
+  }
+  .quote-meta{font-size:12px;color:var(--dim);margin:0 0 1.25rem;line-height:1.8;}
+
+  table{width:100%;border-collapse:collapse;}
+  td{padding:0.55rem 0;vertical-align:top;font-size:15px;color:var(--graphite);}
+  td.num{text-align:right;white-space:nowrap;color:var(--onyx);}
+  tr.rule td{border-top:0.5px solid var(--divider);}
+  tr.total td{
+    border-top:0.5px solid var(--graphite);padding-top:1rem;
+    font-family:"kepler-std-extended-display",Georgia,serif;
+    font-weight:500;font-size:22px;letter-spacing:-0.5px;color:var(--onyx);
+  }
+  td.sub{font-size:12px;color:var(--dim);padding-top:0;padding-bottom:0.9rem;line-height:1.6;}
+
+  .block{
+    margin-top:1.5rem;padding-top:1.25rem;border-top:0.5px solid var(--divider);
+    font-size:12px;line-height:1.8;color:var(--graphite);
+  }
+  .block p{margin:0 0 0.5rem;}
+  .block .cap{
+    text-transform:uppercase;letter-spacing:0.15em;color:var(--dim);
+    margin-bottom:0.5rem;
+  }
+  .block ul{margin:0;padding-left:1.1rem;}
+  .block li{margin-bottom:0.25rem;}
+
+  .actions{display:flex;gap:1rem;flex-wrap:wrap;}
+  button.primary,button.ghost{
+    font-family:"kepler-std",Georgia,serif;font-size:12px;
+    text-transform:uppercase;letter-spacing:0.22em;
+    border:none;padding:0.9rem 2rem;cursor:pointer;margin-top:1.5rem;
+  }
+  button.primary{background:var(--onyx);color:var(--snow);}
+  button.primary:hover{background:var(--burgundy);}
+  button.ghost{background:transparent;color:var(--onyx);border:0.5px solid var(--graphite);}
+  button.ghost:hover{border-color:var(--burgundy);color:var(--burgundy);}
+
+  footer.tool-foot{
+    margin-top:4rem;padding-top:1.5rem;border-top:0.5px solid var(--divider);
+    font-size:12px;color:var(--dim);
+  }
+
+  .print-only{display:none;}
+
+  @media print{
+    @page{margin:16mm;}
+    body{background:#fff;font-size:11pt;}
+    .wrap{max-width:none;padding:0;}
+    .builder,.actions,.tool-foot,header.masthead .subhead{display:none !important;}
+    .print-only{display:block;}
+    header.masthead{margin-bottom:1.5rem;}
+    .quote{background:#fff;padding:0;margin-top:0;}
+    .quote-head{border-bottom:0.5pt solid #151515;}
+    tr.total td{font-size:16pt;}
+    a{color:inherit;text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="wordmark">Elena Blair</p>
+    <p class="subhead">Quote Generator — Internal</p>
+    <p class="print-only" style="font-size:11px;text-transform:uppercase;letter-spacing:0.22em;color:#707070;margin:0.5rem 0 0;">The Art of Aspiration</p>
+  </header>
+
+  <div class="builder">
+
+    <p class="section-label first">01 — Client</p>
+    <div class="field grid2">
+      <div>
+        <label class="field-label" for="c-name">Client name</label>
+        <input type="text" id="c-name" placeholder="—">
+      </div>
+      <div>
+        <label class="field-label" for="c-company">Company / label</label>
+        <input type="text" id="c-company" placeholder="—">
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label" for="c-project">Project</label>
+      <input type="text" id="c-project" placeholder="—">
+    </div>
+
+    <p class="section-label">02 — Session</p>
+    <div class="field">
+      <label class="field-label">Session block</label>
+      <div class="radio-col">
+        <label><input type="radio" name="session" value="half" checked> Half day · 4 hours · RM 2,500</label>
+        <label><input type="radio" name="session" value="full"> Full day · 8 hours · RM 4,500</label>
+        <label><input type="radio" name="session" value="multi"> Multi-day</label>
+      </div>
+      <div id="days-wrap" style="display:none;margin-top:1.25rem;max-width:220px;">
+        <label class="field-label" for="days">Number of days</label>
+        <input type="number" id="days" min="1.5" max="20" step="0.5" value="2">
+      </div>
+      <p class="helper">Blocks are measured call to wrap — hair, makeup, styling, and setup standby are inside the block, not additional. Multi-day means consecutive calendar days: whole days at RM 4,500, a trailing half day at RM 2,500.</p>
+    </div>
+
+    <p class="section-label">03 — Post-Production</p>
+    <div class="field">
+      <label class="field-label" for="finals">Number of finals</label>
+      <input type="number" id="finals" min="1" max="100" step="1" value="10">
+      <p class="helper">Retouching fixed at RM 200 per final. All finals delivered fully retouched and color-graded.</p>
+    </div>
+
+    <p class="section-label">04 — Licensing</p>
+    <div class="field">
+      <div>
+        <label class="field-label" for="usage">Where the images run</label>
+        <select id="usage">
+          <option value="0">Magazine / editorial feature only</option>
+          <option value="0.5" selected>Own website &amp; social — no ads, no boosting</option>
+          <option value="0.75">Own website &amp; social + printed materials</option>
+          <option value="1">Advertising in Malaysia — any boosted or paid placement</option>
+          <option value="2">Billboard, LED screens &amp; broadcast, Malaysia</option>
+          <option value="2.5">Advertising, SEA</option>
+          <option value="3">Advertising, worldwide</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="max-width:280px;">
+      <label class="field-label" for="duration">License period</label>
+      <select id="duration">
+        <option value="1" selected>1 year</option>
+        <option value="1.5">2 years</option>
+        <option value="2">3 years / perpetual</option>
+      </select>
+    </div>
+    <div class="field">
+      <div class="check-row" id="exclusive-row">
+        <input type="checkbox" id="exclusive">
+        <label for="exclusive">Exclusive — the images are withheld from all other licensees for the license period.</label>
+      </div>
+      <p class="helper">Exclusivity adds 50%, and prices at the advertising-in-Malaysia rate as a minimum whatever tier is selected. Elena Blair retains portfolio, archive, and editorial use throughout.</p>
+    </div>
+    <p class="helper" style="margin-bottom:0.5rem;">The test is ad spend: if any money goes behind the image — boosted post, banner, programmatic, sponsored placement — it is advertising, not own-channel use. "Own website" means the brand's own site, not paid placement on someone else's.</p>
+
+    <p class="section-label">05 — Additional Expenses</p>
+    <div class="field">
+      <div id="exp-list"></div>
+      <button type="button" class="link-btn" id="exp-add">+ Add line</button>
+      <p class="helper">Talent, makeup, styling, wardrobe, props, venue hire, permits, and travel are passed through here. Anything not itemized stays excluded.</p>
+    </div>
+
+    <p class="section-label">06 — Notes</p>
+    <div class="field">
+      <label class="field-label" for="notes">Notes (optional)</label>
+      <textarea id="notes" placeholder="—"></textarea>
+    </div>
+
+  </div><!-- /builder -->
+
+  <p class="section-label">07 — Quote</p>
+  <div class="quote" id="quote-panel">
+
+    <div class="quote-head">
+      <span class="who" id="q-who">—</span>
+      <span class="ref" id="q-ref"></span>
+    </div>
+    <p class="quote-meta" id="q-meta"></p>
+
+    <table>
+      <tr>
+        <td id="row-session-label">Session fee</td>
+        <td class="num" id="out-session">RM 2,500</td>
+      </tr>
+      <tr>
+        <td>Post-production</td>
+        <td class="num" id="out-retouch">RM 2,000</td>
+      </tr>
+      <tr><td class="sub" colspan="2" id="out-retouch-sub"></td></tr>
+      <tr class="rule">
+        <td>Licensing</td>
+        <td class="num" id="out-licensing">RM 1,250</td>
+      </tr>
+      <tr><td class="sub" colspan="2" id="out-licensing-sub"></td></tr>
+      <tbody id="out-expenses"></tbody>
+      <tr class="total">
+        <td>Total</td>
+        <td class="num" id="out-total">RM 5,750</td>
+      </tr>
+    </table>
+
+    <div class="block">
+      <p id="term-grant"></p>
+      <p id="term-scale"></p>
+    </div>
+
+    <div class="block" id="notes-block" style="display:none;">
+      <p class="cap">Notes</p>
+      <p id="q-notes"></p>
+    </div>
+
+    <div class="block">
+      <p class="cap">Not included</p>
+      <ul>
+        <li>Talent and model fees</li>
+        <li>Hair, makeup, and styling</li>
+        <li>Wardrobe, props, and set build</li>
+        <li>Venue or studio hire and location permits</li>
+        <li>Travel and accommodation outside Kuala Lumpur</li>
+      </ul>
+      <p style="margin-top:0.5rem;">Except where itemized above as an additional expense.</p>
+    </div>
+
+    <div class="block">
+      <p>The session block is measured call to wrap. Preparation and standby fall inside the block.</p>
+      <p>Copyright in all images remains with Elite Corridor Sdn Bhd at all times. Any transfer that might otherwise arise under section 26(2) of the Copyright Act 1987 is expressly excluded. This quote grants a license, not ownership.</p>
+      <p>All rates in Malaysian Ringgit. Quote valid 30 days from date of issue.</p>
+      <p style="margin-top:0.75rem;">Elena Blair · Elite Corridor Sdn Bhd · sayhello@elenablair.com</p>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button type="button" class="primary" id="print">Print / Save PDF</button>
+    <button type="button" class="ghost" id="copy">Copy quote</button>
+  </div>
+
+  <footer class="tool-foot">
+    Elena Blair · Elite Corridor Sdn Bhd · sayhello@elenablair.com<br>
+    Internal tool. Print or copy before sending — do not share this URL.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var RETOUCH   = 200;
+  var FULL_DAY  = 4500;   // per whole day
+  var HALF_DAY  = 2500;   // half day, and a trailing half on a multi-day
+  var BASE_HALF = 250;    // base rate per image, half day
+  var BASE_FULL = 450;    // base rate per image, full day and above (does NOT scale with days)
+  var TAPER_AT  = 10;
+  var TAPER_PCT = 0.5;
+
+  // Returns { fee, base, label } for the selected block.
+  function block(){
+    var key = document.querySelector('input[name="session"]:checked').value;
+    if (key === 'half') {
+      return { fee:HALF_DAY, base:BASE_HALF, label:'Session fee — half day (4 hours)' };
+    }
+    if (key === 'full') {
+      return { fee:FULL_DAY, base:BASE_FULL, label:'Session fee — full day (8 hours)' };
+    }
+    var days = parseFloat(document.getElementById('days').value);
+    if (!days || days < 1.5) days = 1.5;
+    days = Math.round(days * 2) / 2;               // snap to half-day steps
+    var whole = Math.floor(days);
+    var half  = (days - whole) >= 0.5 ? 1 : 0;
+    var fee   = whole * FULL_DAY + half * HALF_DAY;
+    var txt   = days % 1 === 0 ? String(days) : String(days);
+    return {
+      fee: fee,
+      base: BASE_FULL,
+      label: 'Session fee — ' + txt + ' day' + (days === 1 ? '' : 's'),
+      days: days
+    };
+  }
+
+  var usageEl  = document.getElementById('usage');
+  var durEl    = document.getElementById('duration');
+  var finalsEl = document.getElementById('finals');
+  var exEl     = document.getElementById('exclusive');
+  var exRow    = document.getElementById('exclusive-row');
+  var expList  = document.getElementById('exp-list');
+
+  function rm(n){ return 'RM ' + Math.round(n).toLocaleString('en-US'); }
+  function trim(n){ return n.toFixed(2).replace(/\.?0+$/,''); }
+
+  // --- reference number, stable for the page session ---
+  var REF = (function(){
+    var d = new Date();
+    var p = function(x){ return String(x).padStart(2,'0'); };
+    var stamp = String(d.getFullYear()).slice(2) + p(d.getMonth()+1) + p(d.getDate());
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var tail = '';
+    for (var i=0;i<3;i++) tail += chars.charAt(Math.floor(Math.random()*chars.length));
+    return 'EB-' + stamp + '-' + tail;
+  })();
+
+  function dates(){
+    var opts = { day:'numeric', month:'long', year:'numeric' };
+    var issue = new Date();
+    var until = new Date(issue.getTime() + 30*24*60*60*1000);
+    return {
+      issue: issue.toLocaleDateString('en-GB', opts),
+      until: until.toLocaleDateString('en-GB', opts)
+    };
+  }
+
+  // --- additional expenses ---
+  function addExpense(desc, amt){
+    var row = document.createElement('div');
+    row.className = 'exp-row';
+    row.innerHTML =
+      '<div><label class="field-label">Description</label>' +
+      '<input type="text" class="exp-desc" placeholder="—"></div>' +
+      '<div class="rm"><label class="field-label">Amount (RM)</label>' +
+      '<input type="number" class="exp-amt" min="0" step="1" placeholder="0"></div>' +
+      '<button type="button" class="exp-del" title="Remove">&times;</button>';
+    expList.appendChild(row);
+    if (desc) row.querySelector('.exp-desc').value = desc;
+    if (amt)  row.querySelector('.exp-amt').value = amt;
+    row.querySelector('.exp-del').addEventListener('click', function(){
+      row.remove();
+      calc();
+    });
+  }
+
+  document.getElementById('exp-add').addEventListener('click', function(){
+    addExpense();
+  });
+
+  function expenses(){
+    var out = [];
+    Array.prototype.forEach.call(expList.querySelectorAll('.exp-row'), function(r){
+      var d = r.querySelector('.exp-desc').value.trim();
+      var a = parseFloat(r.querySelector('.exp-amt').value);
+      if (!a || a <= 0) return;
+      out.push({ desc: d || 'Additional expense', amt: a });
+    });
+    return out;
+  }
+
+  function val(id){ return document.getElementById(id).value.trim(); }
+
+  function calc(){
+    var key = document.querySelector('input[name="session"]:checked').value;
+    document.getElementById('days-wrap').style.display = (key === 'multi') ? 'block' : 'none';
+    var blk  = block();
+    var fee  = blk.fee;
+    var base = blk.base;
+
+    var finals = parseInt(finalsEl.value, 10);
+    if (!finals || finals < 1) finals = 1;
+
+    var geoBase   = parseFloat(usageEl.value);
+    var dur       = parseFloat(durEl.value);
+    var editorial = geoBase === 0;
+
+    exRow.classList.toggle('is-disabled', editorial);
+    if (editorial) exEl.checked = false;
+
+    var geo = geoBase;
+    if (exEl.checked) geo = Math.max(geoBase, 1) * 1.5;
+
+    var retouch = finals * RETOUCH;
+
+    var atFull    = Math.min(finals, TAPER_AT);
+    var atTaper   = Math.max(finals - TAPER_AT, 0);
+    var baseTotal = (atFull * base) + (atTaper * base * TAPER_PCT);
+
+    var licensing = baseTotal * geo * dur;
+    var firstRate = base * geo * dur;
+    var taperRate = firstRate * TAPER_PCT;
+
+    var exp = expenses();
+    var expTotal = exp.reduce(function(s,e){ return s + e.amt; }, 0);
+    var total = fee + retouch + licensing + expTotal;
+
+    // header
+    var who = val('c-company') || val('c-name') || '—';
+    var proj = val('c-project');
+    document.getElementById('q-who').textContent = who;
+    document.getElementById('q-ref').textContent = REF;
+
+    var d = dates();
+    var meta = [];
+    if (proj) meta.push(proj);
+    if (val('c-name') && val('c-company')) meta.push('Attn: ' + val('c-name'));
+    meta.push('Issued ' + d.issue);
+    meta.push('Valid until ' + d.until);
+    document.getElementById('q-meta').textContent = meta.join('  ·  ');
+
+    // rows
+    document.getElementById('row-session-label').textContent = blk.label;
+    document.getElementById('out-session').textContent  = rm(fee);
+    document.getElementById('out-retouch').textContent  = rm(retouch);
+    document.getElementById('out-retouch-sub').textContent =
+      finals + ' final' + (finals === 1 ? '' : 's') + ' × ' + rm(RETOUCH);
+    document.getElementById('out-licensing').textContent = rm(licensing);
+
+    var sub;
+    if (editorial) {
+      sub = 'Editorial feature only — no licensing fee.';
+    } else if (atTaper > 0) {
+      sub = atFull + ' × ' + rm(firstRate) + ', then ' + atTaper + ' × ' + rm(taperRate) +
+            '  ·  base ' + rm(base) + ' × ' + trim(geo) + ' × ' + trim(dur);
+    } else {
+      sub = finals + ' × ' + rm(firstRate) +
+            '  ·  base ' + rm(base) + ' × ' + trim(geo) + ' × ' + trim(dur);
+    }
+    document.getElementById('out-licensing-sub').textContent = sub;
+
+    var expBody = document.getElementById('out-expenses');
+    expBody.innerHTML = '';
+    exp.forEach(function(e, i){
+      var tr = document.createElement('tr');
+      if (i === 0) tr.className = 'rule';
+      tr.innerHTML = '<td>' + escapeHtml(e.desc) + '</td>' +
+                     '<td class="num">' + rm(e.amt) + '</td>';
+      expBody.appendChild(tr);
+    });
+
+    document.getElementById('out-total').textContent = rm(total);
+
+    // terms
+    var scaleNote = editorial
+      ? 'No advertising or marketing licensing applies to this grant.'
+      : 'Licensing is priced per image. The first ' + TAPER_AT +
+        ' finals license at full rate; each additional final at 50%. Adding finals increases both post-production and licensing.';
+    document.getElementById('term-scale').textContent = scaleNote;
+
+    var grant;
+    if (editorial) {
+      grant = 'License granted: magazine / editorial feature only. No advertising or own-channel marketing use.';
+    } else {
+      var g = usageEl.options[usageEl.selectedIndex].text +
+              ', ' + durEl.options[durEl.selectedIndex].text.toLowerCase() + ', ' +
+              (exEl.checked ? 'exclusive' : 'non-exclusive') + '.';
+      grant = 'License granted: ' + g;
+      if (exEl.checked) {
+        grant += ' Images are withheld from all other licensees for the license period; Elena Blair retains portfolio, archive, and editorial use.';
+      }
+    }
+    document.getElementById('term-grant').textContent = grant;
+
+    var notes = val('notes');
+    document.getElementById('notes-block').style.display = notes ? 'block' : 'none';
+    document.getElementById('q-notes').textContent = notes;
+
+    return {
+      key:key, label:blk.label, fee:fee, finals:finals, retouch:retouch,
+      atFull:atFull, atTaper:atTaper, firstRate:firstRate, taperRate:taperRate,
+      licensing:licensing, exp:exp, total:total,
+      editorial:editorial, grant:grant, scaleNote:scaleNote,
+      who:who, meta:meta.join('  ·  '), notes:notes
+    };
+  }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function plain(){
+    var d = calc();
+    var L = [];
+    L.push('ELENA BLAIR — THE ART OF ASPIRATION');
+    L.push(REF);
+    L.push('');
+    L.push(d.who);
+    L.push(d.meta);
+    L.push('');
+    L.push(d.label + '  ' + rm(d.fee));
+    L.push('Post-production (' + d.finals + ' × ' + rm(RETOUCH) + ')  ' + rm(d.retouch));
+    if (d.editorial) {
+      L.push('Licensing  —');
+    } else if (d.atTaper > 0) {
+      L.push('Licensing (' + d.atFull + ' × ' + rm(d.firstRate) +
+             ', then ' + d.atTaper + ' × ' + rm(d.taperRate) + ')  ' + rm(d.licensing));
+    } else {
+      L.push('Licensing (' + d.finals + ' × ' + rm(d.firstRate) + ')  ' + rm(d.licensing));
+    }
+    d.exp.forEach(function(e){ L.push(e.desc + '  ' + rm(e.amt)); });
+    L.push('TOTAL  ' + rm(d.total));
+    L.push('');
+    L.push(d.grant);
+    L.push(d.scaleNote);
+    if (d.notes) { L.push(''); L.push('Notes: ' + d.notes); }
+    L.push('');
+    L.push('NOT INCLUDED — talent and model fees; hair, makeup and styling; wardrobe, props and set build; venue or studio hire and location permits; travel and accommodation outside Kuala Lumpur. Except where itemized above.');
+    L.push('The session block is measured call to wrap. Preparation and standby fall inside the block.');
+    L.push('Copyright in all images remains with Elite Corridor Sdn Bhd at all times. Any transfer that might otherwise arise under section 26(2) of the Copyright Act 1987 is expressly excluded. This quote grants a license, not ownership.');
+    L.push('All rates in Malaysian Ringgit. Valid 30 days from date of issue.');
+    L.push('');
+    L.push('Elena Blair · Elite Corridor Sdn Bhd · sayhello@elenablair.com');
+    return L.join('\n');
+  }
+
+  ['change','input'].forEach(function(evt){
+    document.addEventListener(evt, calc);
+  });
+
+  document.getElementById('print').addEventListener('click', function(){
+    calc();
+    window.print();
+  });
+
+  document.getElementById('copy').addEventListener('click', function(){
+    var btn = this, text = plain();
+    var done = function(){
+      btn.textContent = 'Copied';
+      setTimeout(function(){ btn.textContent = 'Copy quote'; }, 1600);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  });
+
+  function fallback(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  addExpense();
+  calc();
+})();
+</script>
+</body>
+</html>
