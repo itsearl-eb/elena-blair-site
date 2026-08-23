@@ -16,6 +16,72 @@ const cld = (url, w) => url.replace("/upload/", `/upload/f_auto,q_auto,w_${w}/`)
 
 const projects = [
  {
+    slug: "composure",
+    title: "Composure",
+    shootType: "Creative",
+    date: "2026-06-25",
+    featured: false,
+    metaDescription: "Composure — a studio set with Zyra. Force that has decided not to move yet.",
+    standfirst: "Not the absence of force, but force that has decided not to move yet.",
+
+    opening: {
+      mode: "A",
+      tone: "dark",
+      hero: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485587/EB_Creative_Still_Water_Zyra_25-06-26_22338_lnwdci.jpg",
+        orientation: "portrait",
+        alt: "Zyra seated, low angle, cloche hat and black tailoring against a dark ground"
+      }
+    },
+
+    sequence: [
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485583/EB_Creative_Still_Water_Zyra_25-06-26_22192_heodia.jpg",
+        orientation: "portrait",
+        alt: "Zyra seated in a chrome-framed chair, beret and sleeveless vest"
+      }},
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485623/EB_Creative_Still_Water_Zyra_25-06-26_22099_s9yzly.jpg",
+        orientation: "portrait",
+        alt: "Zyra standing full length, beret and vest, hands at hips"
+      }},
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485582/EB_Creative_Still_Water_Zyra_25-06-26_22547_vt4bju.jpg",
+        orientation: "portrait",
+        alt: "Zyra in cloche hat and cape, hands drawn to the collar"
+      }},
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485587/EB_Creative_Still_Water_Zyra_25-06-26_22480_ebth5u.jpg",
+        orientation: "landscape",
+        alt: "Close crop of Zyra, hands framing her face, warm lip against desaturated tone"
+      }},
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485582/EB_Creative_Still_Water_Zyra_25-06-26_22453_bodyds.jpg",
+        orientation: "portrait",
+        alt: "Zyra full length in cloche and cape, gathering the cape closed"
+      }},
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485576/EB_Creative_Still_Water_Zyra_25-06-26_22432_jbxzqh.jpg",
+        orientation: "portrait",
+        alt: "Zyra beside a mirror, cloche and cape, her reflection doubled"
+      }},
+      { type: "full", frame: {
+        base: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485587/EB_Creative_Still_Water_Zyra_25-06-26_22568_ozqhp4.jpg",
+        orientation: "portrait",
+        alt: "Zyra full length in cloche, cape and scarf, gaze off frame"
+      }}
+    ],
+
+    credits: [
+      { role: "Photography", name: "Earl Kiu", url: "https://earlkiu.com" },
+      { role: "Subject", name: "Zyra" , url: "https://www.instagram.com/kaznoiryra/" },
+      { role: "Make-up", name: "Katniss", url: "https://www.instagram.com/katniss_mua/" }
+    ],
+
+    ogImageBase: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485587/EB_Creative_Still_Water_Zyra_25-06-26_22338_lnwdci.jpg"
+  },
+ 
+ {
   slug: "center-court",
   title: "Center Court",
   shootType: "Creative",
