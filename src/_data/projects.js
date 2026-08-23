@@ -73,9 +73,9 @@ const projects = [
     ],
 
     credits: [
-      { role: "Photography", name: "Earl Kiu" },
-      { role: "Subject", name: "Zyra" },
-      { role: "Make-up", name: "Katniss" }
+      { role: "Photography", name: "Earl Kiu", url: "https://earlkiu.com" },
+      { role: "Subject", name: "Zyra" , url: "https://www.instagram.com/kaznoiryra/" },
+      { role: "Make-up", name: "Katniss", url: "https://www.instagram.com/katniss_mua/" }
     ],
 
     ogImageBase: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485587/EB_Creative_Still_Water_Zyra_25-06-26_22338_lnwdci.jpg"
