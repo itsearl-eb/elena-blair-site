@@ -79,7 +79,7 @@ const projects = [
     ],
 
     ogImageBase: "https://res.cloudinary.com/dj0puxegp/image/upload/v1787485587/EB_Creative_Still_Water_Zyra_25-06-26_22338_lnwdci.jpg"
-  }
+  },
  
  {
   slug: "center-court",
