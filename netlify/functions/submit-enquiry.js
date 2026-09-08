@@ -85,6 +85,14 @@ exports.handler = async function (event) {
       console.error("Internal notification failed:", mailErr.message);
     }
 
+    // ---------- 3. DASHBOARD SYNC (best-effort) ----------
+    // Does NOT affect the response. Lead is already safe in Sprout above.
+    try {
+      await syncToSupabase(data);
+    } catch (supabaseErr) {
+      console.error("Supabase sync failed (enquiry still saved to Sprout):", supabaseErr);
+    }
+
     return { statusCode: 200, body: JSON.stringify({ success: true }) };
 
   } catch (err) {
@@ -151,3 +159,116 @@ async function sendInternalEmail(data) {
     throw new Error("Resend " + r.status + ": " + t);
   }
 }
+
+// --- Dashboard sync: mirrors the enquiry into the internal ops dashboard (Supabase). ---
+// Required env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY.
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+function supabaseHeaders(extra) {
+  return Object.assign(
+    {
+      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      "Content-Type": "application/json",
+    },
+    extra || {}
+  );
+}
+
+async function supabaseSelect(path) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, { headers: supabaseHeaders() });
+  if (!res.ok) throw new Error(`Supabase select ${path}: ${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+async function supabaseInsert(table, body) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: "POST",
+    headers: supabaseHeaders({ Prefer: "return=representation" }),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Supabase insert ${table}: ${res.status} ${await res.text()}`);
+  const rows = await res.json();
+  return rows[0];
+}
+
+async function findExistingContactId(email, phone) {
+  for (const value of [email, phone].filter(Boolean)) {
+    const rows = await supabaseSelect(
+      `contact_details?value=eq.${encodeURIComponent(value)}&owner_type=eq.contact&select=owner_id&limit=1`
+    );
+    if (rows.length > 0) return rows[0].owner_id;
+  }
+  return null;
+}
+
+async function findOrCreateCompanyId(name) {
+  if (!name) return null;
+  const existing = await supabaseSelect(`companies?name=ilike.${encodeURIComponent(name)}&select=id&limit=1`);
+  if (existing.length > 0) return existing[0].id;
+  const created = await supabaseInsert("companies", { name });
+  return created.id;
+}
+
+async function syncToSupabase(data) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not configured");
+  }
+  const fullName = [data.first_name, data.last_name].filter(Boolean).join(" ");
+  let contactId = await findExistingContactId(data.email, data.phone);
+  const matchedExisting = Boolean(contactId);
+
+  if (!contactId) {
+    const companyId = await findOrCreateCompanyId(data.company);
+    const contact = await supabaseInsert("contacts", {
+      brand: "EB",
+      first_name: data.first_name || "Unknown",
+      last_name: data.last_name || null,
+      company_id: companyId,
+      role: data.role || null,
+      instagram: data.instagram || null,
+      website: data.website || null,
+      how_heard: data.how_found || null,
+    });
+    contactId = contact.id;
+
+    const detailRows = [];
+    if (data.email) detailRows.push({ owner_type: "contact", owner_id: contactId, type: "email", value: data.email });
+    if (data.phone) detailRows.push({ owner_type: "contact", owner_id: contactId, type: "phone", value: data.phone });
+    if (detailRows.length > 0) {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/contact_details`, {
+        method: "POST",
+        headers: supabaseHeaders(),
+        body: JSON.stringify(detailRows),
+      });
+      if (!res.ok) throw new Error(`Supabase insert contact_details: ${res.status} ${await res.text()}`);
+    }
+  }
+
+  const titleSubject = data.company || fullName || "New enquiry";
+  const title = data.project_type ? `${titleSubject} — ${data.project_type}` : titleSubject;
+
+  const project = await supabaseInsert("projects", {
+    brand: "EB",
+    contact_id: contactId,
+    title,
+    status: "Lead",
+    shoot_type: data.project_type || null,
+    deliverables: data.deliverables || null,
+    intended_usage: data.usage ? data.usage.split(",").map((s) => s.trim()).filter(Boolean) : null,
+    territory: data.territory || null,
+    budget_range: data.budget || null,
+    timeline_notes: data.timeline || null,
+    brief: data.brief || null,
+    reference_notes: data.references || null,
+  });
+
+  const notes = [];
+  if (matchedExisting) notes.push("Repeat enquiry — matched to an existing contact by email/phone.");
+  if (data.anything_else) notes.push(`From the enquiry form ("Anything else we should know"):\n\n${data.anything_else}`);
+  for (const body of notes) {
+    await supabaseInsert("project_notes", { project_id: project.id, author_id: null, body });
+  }
+}
+
