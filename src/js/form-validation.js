@@ -64,6 +64,11 @@
     else field.insertBefore(p, field.firstChild)
   }
 
+  // **Only ask this of a real input.** Anything without a `value` — a
+  // wrapper div, a fieldset — reads as empty here and always will, which is
+  // why a rule anchored on a wrapper must carry an `invalid` and is then
+  // judged by that alone. Checkboxes and radios return false because
+  // "ticked" is not "has a value"; those are `invalid` or `radioName`.
   function isEmpty(el) {
     if (!el) return false
     if (el.type === 'checkbox' || el.type === 'radio') return false
@@ -85,14 +90,26 @@
       els = els.filter(function (e) { return e && !e.closest('.hidden') })
       if (!els.length) return
 
+      // **Three tests, and exactly one of them runs.** An earlier version
+      // ran `isEmpty` first and consulted `invalid` only if that passed,
+      // which broke every rule that has an `invalid`: those rules anchor on
+      // a WRAPPER — the `.field` div around a checkbox group — because the
+      // message belongs to the question, not to one of six boxes. A div has
+      // no `value`, so `isEmpty` is unconditionally true for it, `bad` was
+      // already set, and `invalid()` was never called. The commission form
+      // could not be submitted with every box on the page ticked.
+      //
+      // A rule that brings its own predicate is SAYING that emptiness is
+      // not the test. So `invalid` wins outright rather than being consulted
+      // second.
       var bad
-      if (rule.radioName) {
-        var picked = form.querySelector('input[name="' + rule.radioName + '"]:checked')
-        bad = !picked
+      if (rule.invalid) {
+        bad = rule.invalid()
+      } else if (rule.radioName) {
+        bad = !form.querySelector('input[name="' + rule.radioName + '"]:checked')
       } else {
         bad = els.some(isEmpty)
       }
-      if (rule.invalid && !bad) bad = rule.invalid()
       if (!bad) return
 
       markOne(els[0], rule.message)
