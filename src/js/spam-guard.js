@@ -81,6 +81,15 @@
     if (submit && submit.parentNode) submit.parentNode.insertBefore(holder, submit)
     else form.appendChild(holder)
 
+    // **Tell the person early if the widget cannot run.** Turnstile calls
+    // this on a configuration or network failure — `110200` is "domain not
+    // allowed", which is what a missing hostname on the widget produces.
+    // Without it, someone fills in thirty questions and only then discovers
+    // the page could not verify them. The server accepts an absent token
+    // (see its own note), so this is a warning rather than a block: it says
+    // the extra check is not running and gives an address to write to.
+    holder.setAttribute('data-error-callback', 'ebTurnstileError')
+
     if (!document.querySelector('script[src^="' + TURNSTILE_SRC + '"]')) {
       var script = document.createElement('script')
       script.src = TURNSTILE_SRC
@@ -106,6 +115,29 @@
     out[HONEYPOT_FIELD] = trap ? trap.value : ''
     out[TOKEN_FIELD] = token ? token.value : ''
     return out
+  }
+
+  // Named on `window` because Turnstile's implicit rendering takes a callback
+  // by NAME, not by reference.
+  window.ebTurnstileError = function (code) {
+    var forms = document.querySelectorAll('form')
+    for (var i = 0; i < forms.length; i++) {
+      var form = forms[i]
+      if (form.querySelector('.eb-verify-warning')) continue
+      if (!form.querySelector('.cf-turnstile')) continue
+      var p = document.createElement('p')
+      p.className = 'eb-verify-warning'
+      p.setAttribute('role', 'status')
+      p.style.margin = '1.25rem 0'
+      p.style.fontSize = '13px'
+      p.style.lineHeight = '1.8'
+      p.style.color = '#6E1E23'
+      p.textContent =
+        'The spam check on this page is not loading, so your form may not go ' +
+        'through. Try again in a moment, or email us at sayhello@elenablair.com.'
+      form.insertBefore(p, form.firstChild)
+    }
+    if (window.console && console.warn) console.warn('[spam-guard] Turnstile error', code)
   }
 
   window.EBSpamGuard = { install: install, fields: fields }

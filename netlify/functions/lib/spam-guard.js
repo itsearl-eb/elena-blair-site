@@ -45,6 +45,18 @@
 // A token that IS present and fails verification is rejected, configured or
 // not. Failing open is about an absent key, never about a failed check.
 
+// **The one line to flip once Turnstile is actually issuing tokens.**
+//
+// `false` — a request with no token at all is accepted, with a warning,
+// and the honeypot alone decides. `true` — no token is a rejection.
+//
+// It is `false` because on 24 September the widget returned `110200 domain
+// not allowed` on every surface, so no token existed to send: strict would
+// have refused every enquiry on every form. Turn it on once a real
+// submission shows a verified token in the function log — and the log line
+// this file emits when it degrades is how you know that day has come.
+const REJECT_MISSING_TOKEN = false
+
 const HONEYPOT_FIELD = 'company_fax'
 const TOKEN_FIELD = 'turnstile_token'
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
@@ -72,9 +84,35 @@ async function verifyTurnstile(token, event) {
     return { ran: false, ok: true }
   }
   if (!token) {
-    // Configured but no token: either the widget did not load, or the
-    // request did not come from the form. Reject — with a key set, a
-    // missing token is the ordinary signature of a scripted post.
+    // **An absent token is a degrade, not a rejection** — unless
+    // REJECT_MISSING_TOKEN is turned on below.
+    //
+    // This looked wrong until the first live test. With the secret key set
+    // and the widget returning `110200 domain not allowed`, no token is
+    // issued to anyone, so "reject on a missing token" refuses every real
+    // enquiry on every form. A misconfigured widget, an ad blocker on
+    // `challenges.cloudflare.com`, a corporate proxy and a CSP all produce
+    // exactly this evidence, and so does a bot — and we cannot tell them
+    // apart from here.
+    //
+    // It is the same distinction this file already makes for the key: **an
+    // absent token means the check never ran; an invalid token means it ran
+    // and failed.** Failing open on the first and closed on the second is
+    // the rule, applied consistently, not an exception carved out for an
+    // outage.
+    //
+    // The cost is honest: a bot that simply omits the token gets past
+    // Turnstile. It still meets the honeypot, which is where every one of
+    // these forms stood yesterday — so this is never worse than not having
+    // shipped, and it cannot lose a client.
+    if (!REJECT_MISSING_TOKEN) {
+      console.warn(
+        '[spam-guard] Turnstile token ABSENT with a secret key set — accepting, honeypot only. ' +
+          'The widget is not issuing tokens: check the hostname list on the Turnstile widget ' +
+          '(error 110200 is "domain not allowed"), then set REJECT_MISSING_TOKEN = true.',
+      )
+      return { ran: true, ok: true, degraded: true, reason: 'missing-token-accepted' }
+    }
     return { ran: true, ok: false, reason: 'missing-token' }
   }
 
