@@ -170,9 +170,18 @@ ogType: website
 
 </main>
 
+<!-- Spam protection (dashboard §128, item 9). Site key in its own file; the
+     SECRET half is a Netlify env var (TURNSTILE_SECRET_KEY) and the function
+     does the verifying. No site key means no widget and no Cloudflare
+     script, and the honeypot still works. -->
+<script src="/js/turnstile-key.js"></script>
+<script src="/js/spam-guard.js"></script>
 <script>
   (function () {
     var form = document.getElementById('enquiry-form');
+    // Injects the off-screen honeypot, and the Turnstile widget if a site key
+    // is configured. Neither is a defence here — the function decides.
+    if (window.EBSpamGuard) EBSpamGuard.install(form);
     var btn = document.getElementById('submit-btn');
     var errorMsg = document.getElementById('error-msg');
 
@@ -265,7 +274,12 @@ ogType: website
       fetch('/.netlify/functions/submit-enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        // The honeypot's value and the Turnstile token ride along. The
+        // honeypot is sent even when FILLED IN — the function needs to see
+        // that, so this must not helpfully omit it.
+        body: JSON.stringify(
+          window.EBSpamGuard ? Object.assign({}, payload, EBSpamGuard.fields(form)) : payload
+        )
       })
         .then(function (res) { return res.json(); })
         .then(function (data) {

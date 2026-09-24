@@ -1,11 +1,13 @@
+const { checkSubmission, rejectionResponse } = require("./lib/spam-guard");
 // netlify/functions/submit-enquiry.js
 // Client acknowledgment is owned by Sprout (lead-created email) — NOT sent here.
 // This function: 1) creates the Sprout lead (critical path)
 //                2) emails an internal copy with the RAW payload to sayhello@ (best-effort)
 //
 // Required env vars on the MAIN site's Netlify instance:
-//   SPROUT_API_KEY   (copy from the forms site)
-//   RESEND_API_KEY   (new — from resend.com)
+//   SPROUT_API_KEY        (copy from the forms site)
+//   RESEND_API_KEY        (new — from resend.com)
+//   TURNSTILE_SECRET_KEY  (optional; without it the honeypot alone runs — see lib/spam-guard.js)
 // Resend requires elenablair.com verified (SPF/DKIM) to send from sayhello@.
 
 exports.handler = async function (event) {
@@ -15,6 +17,14 @@ exports.handler = async function (event) {
 
   try {
     const data = JSON.parse(event.body);
+
+    // ---------- 0. SPAM (before anything is written or emailed) ----------
+    // §128 item 9. Honeypot always; Turnstile when TURNSTILE_SECRET_KEY is
+    // set. A rejection returns 200/success so a bot stops retrying and a
+    // false positive still reaches the thank-you page. Same lib, byte for
+    // byte, as the forms site — see the note at the top of it.
+    const guard = await checkSubmission(data, event);
+    if (!guard.ok) return rejectionResponse(guard.reason);
 
     // ---------- 1. SPROUT LEAD (critical path) ----------
     const fields = new URLSearchParams();

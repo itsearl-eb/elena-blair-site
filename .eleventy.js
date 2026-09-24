@@ -9,6 +9,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   // Anything in src/static/ lands at the site root (og-image.png, favicons, robots.txt...).
   eleventyConfig.addPassthroughCopy({ "src/static": "/" });
+  // Spam protection's browser half (§128, item 9) — served at /js/, and
+  // referenced by that path from the-commission.njk. Two copies of these
+  // files exist, one here and one in elena-blair-forms, because the two
+  // sites share no build; they must stay byte-identical, and the field names
+  // in them are the contract with netlify/functions/lib/spam-guard.js.
+  eleventyConfig.addPassthroughCopy("src/js");
 
   return {
     dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },
