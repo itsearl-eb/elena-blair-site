@@ -20,50 +20,50 @@ ogType: website
 
     <div class="two-col">
       <div class="field">
-        <label class="field-label" for="first_name">First name <span class="req">*</span></label>
+        <label class="field-label" for="first_name">First name</label>
         <input type="text" id="first_name" name="first_name" required>
       </div>
       <div class="field">
-        <label class="field-label" for="last_name">Last name <span class="req">*</span></label>
+        <label class="field-label" for="last_name">Last name</label>
         <input type="text" id="last_name" name="last_name" required>
       </div>
     </div>
 
     <div class="two-col">
       <div class="field">
-        <label class="field-label" for="company">Company / brand</label>
+        <label class="field-label" for="company">Company / brand <span class="optional">(optional)</span></label>
         <input type="text" id="company" name="company">
       </div>
       <div class="field">
-        <label class="field-label" for="role">Your role</label>
+        <label class="field-label" for="role">Your role <span class="optional">(optional)</span></label>
         <input type="text" id="role" name="role" placeholder="e.g. Creative Director, Stylist">
       </div>
     </div>
 
     <div class="two-col">
       <div class="field">
-        <label class="field-label" for="email">Email <span class="req">*</span></label>
+        <label class="field-label" for="email">Email</label>
         <input type="email" id="email" name="email" required>
       </div>
       <div class="field">
-        <label class="field-label" for="phone">WhatsApp / Phone</label>
+        <label class="field-label" for="phone">WhatsApp / Phone <span class="optional">(optional)</span></label>
         <input type="tel" id="phone" name="phone">
       </div>
     </div>
 
     <div class="two-col">
       <div class="field">
-        <label class="field-label" for="instagram">Instagram</label>
+        <label class="field-label" for="instagram">Instagram <span class="optional">(optional)</span></label>
         <input type="text" id="instagram" name="instagram" placeholder="@">
       </div>
       <div class="field">
-        <label class="field-label" for="website">Website</label>
+        <label class="field-label" for="website">Website <span class="optional">(optional)</span></label>
         <input type="url" id="website" name="website" placeholder="https://">
       </div>
     </div>
 
     <div class="field">
-      <label class="field-label" for="how_found">How did you find us? <span class="req">*</span></label>
+      <label class="field-label" for="how_found">How did you find us?</label>
       <select id="how_found" name="how_found" required>
         <option value="" disabled selected></option>
         <option>Instagram</option>
@@ -79,7 +79,7 @@ ogType: website
     <p class="section-label">02 — The project</p>
 
     <div class="field">
-      <label class="field-label" for="project_type">Type of project <span class="req">*</span></label>
+      <label class="field-label" for="project_type">Type of project</label>
       <select id="project_type" name="project_type" required>
         <option value="" disabled selected></option>
         <option>Editorial</option>
@@ -90,7 +90,7 @@ ogType: website
     </div>
 
     <div class="field" id="field-deliverables">
-      <label class="field-label">Deliverables <span class="req">*</span></label>
+      <label class="field-label">Deliverables</label>
       <div class="check-group" id="deliverables-group">
         <label class="check-item"><input type="checkbox" value="Stills"> Stills</label>
         <label class="check-item"><input type="checkbox" value="Stills + video"> Stills + video</label>
@@ -100,7 +100,7 @@ ogType: website
     </div>
 
     <div class="field" id="field-usage">
-      <label class="field-label">Intended usage <span class="req">*</span></label>
+      <label class="field-label">Intended usage</label>
       <span class="helper">Select all that apply.</span>
       <div class="check-group" id="usage-group">
         <label class="check-item"><input type="checkbox" value="Social media"> Social media</label>
@@ -115,7 +115,7 @@ ogType: website
     </div>
 
     <div class="field" id="field-territory">
-      <label class="field-label">Territory <span class="req">*</span></label>
+      <label class="field-label">Territory</label>
       <div class="check-group">
         <label class="check-item"><input type="radio" name="territory" value="Malaysia only"> Malaysia only</label>
         <label class="check-item"><input type="radio" name="territory" value="Southeast Asia (SEA)"> Southeast Asia (SEA)</label>
@@ -130,7 +130,7 @@ ogType: website
     </div>
 
     <div class="field">
-      <label class="field-label" for="budget">Budget range <span class="req">*</span></label>
+      <label class="field-label" for="budget">Budget range</label>
       <select id="budget" name="budget" required>
         <option value="" disabled selected></option>
         <option>RM 5,000 – RM 10,000</option>
@@ -145,7 +145,7 @@ ogType: website
     <p class="section-label">03 — The brief</p>
 
     <div class="field">
-      <label class="field-label" for="brief">Tell us about the project <span class="req">*</span></label>
+      <label class="field-label" for="brief">Tell us about the project</label>
       <textarea id="brief" name="brief" required placeholder="What are you making, who is it for, and what do you want it to feel like?"></textarea>
       <span class="helper">No formal brief needed — a few sentences is enough to start.</span>
     </div>
@@ -176,6 +176,7 @@ ogType: website
      script, and the honeypot still works. -->
 <script src="/js/turnstile-key.js"></script>
 <script src="/js/spam-guard.js"></script>
+<script src="/js/form-validation.js"></script>
 <script>
   (function () {
     var form = document.getElementById('enquiry-form');
@@ -193,58 +194,43 @@ ogType: website
         .join(', ');
     }
 
+    if (window.EBValidate) EBValidate.watch(form);
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      form.querySelectorAll('.field-error').forEach(function (el) { el.classList.remove('field-error'); });
-      form.querySelectorAll('.field-error-msg').forEach(function (el) { el.style.display = 'none'; });
+      // **One message per field, in the field** (§131 item 10), replacing a
+      // sweep that coloured everything `required` and then said "Please
+      // complete all required fields" at the bottom. On a form this long
+      // that is a scavenger hunt: you scroll looking for red, and the one
+      // you missed is below the fold.
+      var el = function (id) { return document.getElementById(id); };
+      var checks = [
+        { el: el('first_name'), message: 'Enter your first name' },
+        { el: el('last_name'), message: 'Enter your last name' },
+        { el: el('email'), message: 'Enter your email address' },
+        { el: el('how_found'), message: 'Tell us how you found us' },
+        { el: el('project_type'), message: 'Choose the type of project' },
+        {
+          el: el('field-deliverables'),
+          message: 'Choose at least one deliverable',
+          invalid: function () { return !getChecked('deliverables-group'); },
+        },
+        {
+          el: el('field-usage'),
+          message: 'Choose at least one usage type',
+          invalid: function () { return !getChecked('usage-group'); },
+        },
+        {
+          el: el('field-territory'),
+          radioName: 'territory',
+          message: 'Choose a territory',
+        },
+        { el: el('budget'), message: 'Choose a budget range' },
+        { el: el('brief'), message: 'Tell us what you are making' },
+      ].filter(function (c) { return c.el; });
 
-      var errorFields = [];
-
-      form.querySelectorAll('input[required], textarea[required], select[required]').forEach(function (el) {
-        if (!el.value.trim()) {
-          var field = el.closest('.field');
-          if (field && errorFields.indexOf(field) === -1) {
-            field.classList.add('field-error');
-            errorFields.push(field);
-          }
-        }
-      });
-
-      var deliverables = getChecked('deliverables-group');
-      if (!deliverables) {
-        var df = document.getElementById('field-deliverables');
-        df.classList.add('field-error');
-        errorFields.push(df);
-      }
-
-      var usage = getChecked('usage-group');
-      if (!usage) {
-        var uf = document.getElementById('field-usage');
-        uf.classList.add('field-error');
-        var um = uf.querySelector('.field-error-msg');
-        if (um) um.style.display = 'block';
-        errorFields.push(uf);
-      }
-
-      var territoryEl = form.querySelector('input[name="territory"]:checked');
-      if (!territoryEl) {
-        var tf = document.getElementById('field-territory');
-        tf.classList.add('field-error');
-        var tm = tf.querySelector('.field-error-msg');
-        if (tm) tm.style.display = 'block';
-        errorFields.push(tf);
-      }
-
-      if (errorFields.length > 0) {
-        errorFields.sort(function (a, b) {
-          return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
-        });
-        errorFields[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        errorMsg.style.display = 'block';
-        errorMsg.textContent = 'Please complete all required fields before submitting.';
-        return;
-      }
+      if (!EBValidate.validate(form, checks)) return;
 
       errorMsg.style.display = 'none';
       btn.disabled = true;
