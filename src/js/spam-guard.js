@@ -84,10 +84,13 @@
     // **Tell the person early if the widget cannot run.** Turnstile calls
     // this on a configuration or network failure — `110200` is "domain not
     // allowed", which is what a missing hostname on the widget produces.
-    // Without it, someone fills in thirty questions and only then discovers
-    // the page could not verify them. The server accepts an absent token
-    // (see its own note), so this is a warning rather than a block: it says
-    // the extra check is not running and gives an address to write to.
+    //
+    // The degrade this was written for is gone (the server is strict again
+    // as of 24 September), and the wording has changed with it: it no longer
+    // says the form "may not" go through, because now it will not. What has
+    // not changed is why it exists — without it someone answers thirty
+    // questions and only then finds out the page could not verify them.
+    // Under strict verification that warning is worth MORE, not less.
     holder.setAttribute('data-error-callback', 'ebTurnstileError')
 
     if (!document.querySelector('script[src^="' + TURNSTILE_SRC + '"]')) {
@@ -133,8 +136,9 @@
       p.style.lineHeight = '1.8'
       p.style.color = '#6E1E23'
       p.textContent =
-        'The spam check on this page is not loading, so your form may not go ' +
-        'through. Try again in a moment, or email us at sayhello@elenablair.com.'
+        'The spam check on this page is not loading, so this form cannot be ' +
+        'submitted right now. Please reload, or email us at ' +
+        'sayhello@elenablair.com and we will pick it up from there.'
       form.insertBefore(p, form.firstChild)
     }
     if (window.console && console.warn) console.warn('[spam-guard] Turnstile error', code)

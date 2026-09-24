@@ -45,17 +45,35 @@
 // A token that IS present and fails verification is rejected, configured or
 // not. Failing open is about an absent key, never about a failed check.
 
-// **The one line to flip once Turnstile is actually issuing tokens.**
+// **`true` since 24 September 2026 — strict.** A request with no token at
+// all is a rejection.
 //
-// `false` — a request with no token at all is accepted, with a warning,
-// and the honeypot alone decides. `true` — no token is a rejection.
+// It was `false` for a few hours because the widget was returning `110200
+// domain not allowed` on every surface, so no token existed to send and
+// strict would have refused every real enquiry. Turned on once the whole
+// path was exercised live rather than inferred:
 //
-// It is `false` because on 24 September the widget returned `110200 domain
-// not allowed` on every surface, so no token existed to send: strict would
-// have refused every enquiry on every form. Turn it on once a real
-// submission shows a verified token in the function log — and the log line
-// this file emits when it degrades is how you know that day has come.
-const REJECT_MISSING_TOKEN = false
+//   - both staging sites issue an 816-character token, no error callback,
+//     nothing in the console;
+//   - a deliberately invalid token POSTed to the live function came back
+//     `success: false, error: verification-failed` — which proves the
+//     secret is set, Cloudflare is reachable from the function, and the
+//     rejection path works, and writes nothing;
+//   - a filled honeypot came back `success: true` and wrote nothing.
+//
+// **The emergency stop is an env var, not this line**, and that is the point
+// of writing it this way. If Turnstile ever stops issuing tokens again, the
+// fix that matters is measured in seconds: set
+// `SPAM_GUARD_ALLOW_MISSING_TOKEN=1` in the Netlify UI and every form falls
+// back to honeypot-only, with a warning on every invocation. No commit, no
+// deploy, no waiting for a build — which is what an outage on a client-facing
+// intake form actually needs. Unset it to go strict again.
+//
+// Strict is the default precisely because an env var that has to be SET to
+// weaken things cannot weaken them by accident.
+function rejectMissingToken() {
+  return process.env.SPAM_GUARD_ALLOW_MISSING_TOKEN !== '1'
+}
 
 const HONEYPOT_FIELD = 'company_fax'
 const TOKEN_FIELD = 'turnstile_token'
@@ -105,14 +123,15 @@ async function verifyTurnstile(token, event) {
     // Turnstile. It still meets the honeypot, which is where every one of
     // these forms stood yesterday — so this is never worse than not having
     // shipped, and it cannot lose a client.
-    if (!REJECT_MISSING_TOKEN) {
+    if (!rejectMissingToken()) {
       console.warn(
         '[spam-guard] Turnstile token ABSENT with a secret key set — accepting, honeypot only. ' +
           'The widget is not issuing tokens: check the hostname list on the Turnstile widget ' +
-          '(error 110200 is "domain not allowed"), then set REJECT_MISSING_TOKEN = true.',
+          '(error 110200 is "domain not allowed").',
       )
       return { ran: true, ok: true, degraded: true, reason: 'missing-token-accepted' }
     }
+    console.warn('[spam-guard] Turnstile token absent — rejecting (strict).')
     return { ran: true, ok: false, reason: 'missing-token' }
   }
 
@@ -203,4 +222,7 @@ module.exports = {
   TOKEN_FIELD,
   checkSubmission,
   rejectionResponse,
+  // Exported so a harness can assert BOTH postures. The emergency stop is
+  // only worth having if it is known to work on the day it is needed.
+  rejectMissingToken,
 }
