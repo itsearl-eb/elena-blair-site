@@ -7,7 +7,7 @@ const { checkSubmission, rejectionResponse } = require("./lib/spam-guard");
 // Required env vars on the MAIN site's Netlify instance:
 //   SPROUT_API_KEY        (copy from the forms site)
 //   RESEND_API_KEY        (new — from resend.com)
-//   TURNSTILE_SECRET_KEY  (optional; without it the honeypot alone runs — see lib/spam-guard.js)
+//   TURNSTILE_SECRET_KEY  (SET 24 Sep 2026, all contexts — verification is live. Without it the honeypot alone runs; see lib/spam-guard.js)
 // Resend requires elenablair.com verified (SPF/DKIM) to send from sayhello@.
 
 exports.handler = async function (event) {

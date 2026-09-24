@@ -5,13 +5,10 @@
 // `TURNSTILE_SECRET_KEY` and must never appear in this repo — the secret is
 // what makes server-side verification mean anything.
 //
-// Left empty until Earl creates the widget at
-// dash.cloudflare.com → Turnstile → Add widget. While it is empty:
+// Set 24 September 2026, with `TURNSTILE_SECRET_KEY` live on both Netlify
+// sites in every context — so verification is now REAL, not skipped. Empty it
+// again and the honeypot carries on alone; that path is still tested.
 //
-//   - no widget renders, no Cloudflare script loads, and the forms submit
-//     exactly as they do today;
-//   - the HONEYPOT still runs, on both sides, and needs no configuration.
-//
-// One file rather than four hardcoded copies, because a site key pasted into
-// four pages is a site key that will be right in three of them.
-window.EB_TURNSTILE_SITE_KEY = ''
+// One file rather than a copy per page, because a site key pasted into five
+// pages is a site key that will be right in four of them.
+window.EB_TURNSTILE_SITE_KEY = '0x4AAAAAAFB97udRwJdx75gY'

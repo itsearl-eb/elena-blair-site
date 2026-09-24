@@ -123,17 +123,38 @@ async function checkSubmission(data, event) {
   }
 }
 
-// What a rejected submission returns. **200, not 403**, and `success: true`.
+// **The two kinds of rejection are not the same kind of event, and they must
+// not get the same response.** This was one response until the secret key
+// went live on 24 September; with verification actually running, the second
+// case became reachable by real people and silence became the wrong answer.
 //
-// This is deliberate and it is the one thing here worth not changing back. A
-// bot that is told it failed retries with the field left blank; one that is
-// told it succeeded goes away. The form's own JavaScript redirects to the
-// thank-you page either way, so a false positive — a real person somehow
-// caught by this — sees the ordinary confirmation rather than an error they
-// cannot act on. Nothing is written anywhere, which is the entire effect.
+// **Honeypot — answer `success: true` and write nothing.** Only something
+// automated fills in an off-screen field, so there is no real person to
+// inform. A bot told it failed retries with the field left blank; one told it
+// succeeded goes away.
+//
+// **Turnstile — answer `success: false`.** A missing or failed token is NOT
+// proof of a bot. A privacy blocker that blocks `challenges.cloudflare.com`
+// produces exactly the same evidence as a script, and so does a corporate
+// proxy. Telling that person "received, we'll be in touch" while writing
+// nothing is the worst failure this whole feature can produce: they believe
+// they have reached the studio and nobody ever replies. `success: false`
+// lands in each form's own catch, which already says "Something went wrong.
+// Please try again, or email us at sayhello@elenablair.com" — an error with
+// a way out.
+//
+// The shape is `{ success: false }` at status 200 rather than a 403 because
+// that is the exact shape every one of these forms already handles; none of
+// them reads `res.ok`. A 403 would be more correct as HTTP and less correct
+// as behaviour.
 function rejectionResponse(reason) {
-  console.log('[spam-guard] rejected:', reason)
-  return { statusCode: 200, body: JSON.stringify({ success: true }) }
+  const silent = reason === 'honeypot'
+  console.log(`[spam-guard] rejected: ${reason} (${silent ? 'silent' : 'told'})`)
+  if (silent) return { statusCode: 200, body: JSON.stringify({ success: true }) }
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ success: false, error: 'verification-failed' }),
+  }
 }
 
 // The two field names the front end must use. Exported so the HTML and this

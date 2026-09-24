@@ -68,6 +68,13 @@
     // Managed mode: invisible for almost everyone, an interaction only for
     // traffic Cloudflare is unsure about.
     holder.setAttribute('data-appearance', 'interaction-only')
+    // **A Turnstile token expires after 300 seconds, and these forms take
+    // longer than that.** The minor intake asks about thirty questions; the
+    // commission form asks for a brief. Someone filling one in carefully
+    // would arrive at Submit holding a dead token and be rejected — the
+    // single most likely way this feature loses a real enquiry. `auto` gets
+    // a fresh one before that happens.
+    holder.setAttribute('data-refresh-expired', 'auto')
     holder.style.margin = '1.5rem 0'
 
     var submit = form.querySelector('button[type="submit"], input[type="submit"], button:not([type])')
