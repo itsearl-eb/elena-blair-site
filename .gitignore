@@ -1,0 +1,5 @@
+# Eleventy's build output and npm's tree. Neither was ignored before, which
+# meant `git add -A` in this repo would have committed both —
+# added 24 September 2026 before doing exactly that.
+node_modules/
+_site/

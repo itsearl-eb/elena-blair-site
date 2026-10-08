@@ -197,3 +197,62 @@
   flex-direction: column;
   justify-content: center;
 }
+
+
+/* --------------------------------------------------------------------------
+   Validation messages (§131 item 10) — the same shapes the intake forms use,
+   because a person who fills in one of these should not have to learn the
+   other. Kept here rather than in eb.css: this is form behaviour, and eb.css
+   is the brand layer.
+   -------------------------------------------------------------------------- */
+
+/* Thicker as well as burgundy. Colour alone is not a signal everybody can
+   see, and on a long form the weight change is what makes a field findable
+   by eye once you know roughly where it is. */
+.field-error input,
+.field-error select,
+.field-error textarea {
+  border-bottom-color: var(--burgundy);
+  border-bottom-width: 2px;
+}
+
+.field-error label.field-label {
+  color: var(--burgundy);
+}
+
+/* Between the label and the input — not appended at the end, where under a
+   three-row textarea it reads as a note about the next question. */
+.eb-field-msg {
+  font-size: 12px;
+  color: var(--burgundy);
+  margin: 0.15rem 0 0.35rem;
+}
+
+/* Only when two or more are missing. One needs no index; a list of seven
+   does, and scrolling back up to count them is what makes people give up. */
+.eb-validation-summary {
+  border-left: 2px solid var(--burgundy);
+  padding: 0.75rem 0 0.75rem 1rem;
+  margin-bottom: 2rem;
+  font-size: 13px;
+  color: var(--burgundy);
+}
+
+.eb-validation-summary ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.eb-validation-summary a {
+  color: var(--burgundy);
+}
+
+/* "(optional)" rather than an asterisk on everything else (§131 item 3).
+   Most fields here are required, so marking those was marking nearly all of
+   them — an asterisk that appears a dozen times stops being information. */
+.optional {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--dim, #707070);
+  text-transform: none;
+}

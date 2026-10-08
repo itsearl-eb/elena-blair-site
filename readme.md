@@ -63,3 +63,5 @@ unchanged. The mechanics that doc described per-page now live in `frame.njk` +
   but unstyled.
 - Home page: drop your existing landing in as `src/index.html` (passthrough), or
   convert to a template later.
+
+  
